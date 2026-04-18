@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow admin pages from being crawled by search engines
+Disallow: /admin.html
+Disallow: /profile.html
+
+# Sitemap location (update "yourdomain.com" with your actual domain when you buy it)
+Sitemap: https://lrcmediplus.com/sitemap.xml

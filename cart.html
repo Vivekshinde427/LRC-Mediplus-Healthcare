@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart | LRC Medi+ Healthcare</title>
+    <meta name="description"
+        content="Review your selected medical equipment for rent or purchase. Fast home delivery and complete setup across Navi Mumbai.">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Apply theme before CSS loads to prevent flash -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lrc-theme') || 'light');</script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+    <div id="headerContainer"></div>
+
+    <section class="section cart-section">
+        <div class="container animate-fadeInUp">
+
+            <div class="section-title text-left mb-xl">
+                <h2 style="font-size:var(--font-size-2xl);">Your Cart</h2>
+            </div>
+
+            <!-- Empty State -->
+            <div class="cart-empty hidden" id="cartEmpty">
+                <i class="fa-solid fa-cart-arrow-down"></i>
+                <h3>Your cart is empty</h3>
+                <p>Looks like you haven't added any medical equipment yet.</p>
+                <a href="store.html" class="btn btn-primary">
+                    <i class="fa-solid fa-store"></i> Return to Store
+                </a>
+            </div>
+
+            <!-- Cart Layout -->
+            <div class="cart-layout">
+                <!-- Cart Items -->
+                <div class="cart-items" id="cartItems">
+                    <div class="cart-items-header">
+                        <h3><i class="fa-solid fa-clipboard-list"></i> Order Items (<span id="cartItemCount">0</span>)
+                        </h3>
+                        <button class="btn btn-ghost btn-sm" onclick="clearCart()">
+                            <i class="fa-solid fa-trash-can"></i> Clear All
+                        </button>
+                    </div>
+                    <div id="cartItemsList">
+                        <!-- Items injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary" id="cartSummary">
+                    <h3><i class="fa-solid fa-receipt"></i> Order Summary</h3>
+
+                    <div class="summary-row">
+                        <span>Items (<span id="totalItems">0</span>)</span>
+                        <strong id="cartSubtotal">₹0</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery & Setup</span>
+                        <strong id="cartDelivery" class="text-success">FREE</strong>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>Total Amount</span>
+                        <span class="amount" id="cartTotal">₹0</span>
+                    </div>
+
+                    <button class="btn btn-primary btn-block checkout-btn btn-lg" onclick="placeOrder()">
+                        <i class="fa-solid fa-check-circle"></i> Place Order (COD)
+                    </button>
+
+                    <div class="payment-note">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <span>Payment will be collected at the time of delivery (Cash on Delivery).</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footerContainer"></div>
+    <div id="utilsContainer"></div>
+
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerContainer').innerHTML = getHeaderHTML('cart');
+            document.getElementById('footerContainer').innerHTML = getFooterHTML();
+            document.getElementById('utilsContainer').innerHTML = getToastContainerHTML() + getLoaderHTML();
+
+            initCommonUI();
+
+            auth.onAuthStateChanged(user => {
+                updateNavAuth(user);
+            });
+
+            initCartPage();
+        });
+    </script>
+</body>
+
+</html>

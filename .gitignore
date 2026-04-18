@@ -1,0 +1,10 @@
+# Ignore API keys and configuration files containing secrets
+js/api-keys.js
+
+# Node modules (if ever used)
+node_modules/
+.npm/
+
+# OS generated files
+.DS_Store
+Thumbs.db

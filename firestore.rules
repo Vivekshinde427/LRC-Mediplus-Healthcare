@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── PRODUCTS ───────────────────────────────────────────────
+    // Anyone can read products (public catalog)
+    // Only admin can write products
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.token.email == "mediiplus.healthcare@gmail.com";
+    }
+
+    // ─── USERS ──────────────────────────────────────────────────
+    // Authenticated users can read/write their own document only
+    // Admin can read all users
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null
+                  && request.auth.token.email == "mediiplus.healthcare@gmail.com";
+    }
+
+    // ─── ORDERS ─────────────────────────────────────────────────
+    // Authenticated users can create orders and read their own orders
+    // Admin can read and update all orders
+    match /orders/{orderId} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null
+                  && (resource.data.userId == request.auth.uid
+                      || request.auth.token.email == "mediiplus.healthcare@gmail.com");
+      allow update: if request.auth != null
+                    && (
+                      // User can only cancel their own pending order
+                      (resource.data.userId == request.auth.uid
+                       && request.resource.data.status == "cancelled"
+                       && resource.data.status == "pending")
+                      ||
+                      // Admin can update any order
+                      request.auth.token.email == "mediiplus.healthcare@gmail.com"
+                    );
+      allow delete: if request.auth != null
+                    && request.auth.token.email == "mediiplus.healthcare@gmail.com";
+    }
+  }
+}

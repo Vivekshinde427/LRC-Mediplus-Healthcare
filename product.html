@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Details | LRC Medi+ Healthcare</title>
+    <meta name="description"
+        content="View detailed specifications, rental pricing, and purchase options for our high-quality medical equipment.">
+    <meta name="keywords" content="medical equipment specs, wheelchair details, hospital bed features">
+    <meta property="og:title" content="LRC Medi+ Medical Equipment">
+    <meta property="og:type" content="product">
+    <!-- Apply theme before CSS loads to prevent flash -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lrc-theme') || 'light');</script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+    <div id="headerContainer"></div>
+
+    <section class="section product-detail-section">
+        <div class="container animate-fadeInUp">
+
+            <div class="breadcrumb mb-lg">
+                <a href="index.html">Home</a>
+                <span class="separator"><i class="fa-solid fa-chevron-right" style="font-size:0.7rem"></i></span>
+                <a href="store.html">Store</a>
+                <span class="separator"><i class="fa-solid fa-chevron-right" style="font-size:0.7rem"></i></span>
+                <a href="#" id="breadcrumbCategory">Category</a>
+                <span class="separator"><i class="fa-solid fa-chevron-right" style="font-size:0.7rem"></i></span>
+                <span class="current" id="breadcrumbProduct">Product</span>
+            </div>
+
+            <div id="productDetailContainer">
+                <!-- Product details injected by JS -->
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footerContainer"></div>
+    <div id="utilsContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/cart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            document.getElementById('headerContainer').innerHTML = getHeaderHTML('store');
+            document.getElementById('footerContainer').innerHTML = getFooterHTML();
+            document.getElementById('utilsContainer').innerHTML = getToastContainerHTML() + getLoaderHTML();
+
+            initCommonUI();
+
+            auth.onAuthStateChanged(user => {
+                updateNavAuth(user);
+            });
+
+            showLoader();
+            try {
+                await initProductDetail();
+            } catch (err) {
+                console.error('Product detail error:', err);
+                showToast('error', 'Connection Error', 'Could not load product. Check your Firebase config.');
+            } finally {
+                hideLoader();
+            }
+        });
+    </script>
+</body>
+
+</html>

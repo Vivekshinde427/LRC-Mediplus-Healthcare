@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Account | LRC Medi+ Healthcare</title>
+    <meta name="description" content="Create an account with LRC Medi+ Healthcare to easily rent or purchase premium medical equipment in Navi Mumbai.">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Apply theme before CSS loads to prevent flash -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lrc-theme') || 'light');</script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+    <!-- Utilities injected by JS -->
+    <div id="utilsContainer"></div>
+
+    <div class="auth-page">
+        <div class="auth-container" style="max-width: 500px;">
+            <div class="auth-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <img src="images/main-logo.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                </a>
+                <h2>Create Account</h2>
+                <p>Register to purchase or rent medical equipment</p>
+            </div>
+
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <div class="form-icon-group">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="regName" class="form-control" placeholder="John Doe">
+                    </div>
+                    <span class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <div class="form-icon-group">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="regEmail" class="form-control" placeholder="john@example.com">
+                    </div>
+                    <span class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="regMobile">Mobile Number</label>
+                    <div class="form-icon-group">
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="tel" id="regMobile" class="form-control" placeholder="10-digit mobile number">
+                    </div>
+                    <span class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="regAddress">Complete Address (For Delivery)</label>
+                    <div class="form-icon-group" style="align-items: flex-start;">
+                        <i class="fa-solid fa-location-dot" style="top: 20px;"></i>
+                        <textarea id="regAddress" class="form-control" placeholder="Flat No, Building, Street, City, Pincode"></textarea>
+                    </div>
+                    <span class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <div class="form-icon-group">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="regPassword" class="form-control" placeholder="Min. 6 characters">
+                        <span class="password-toggle" onclick="togglePasswordVisibility('regPassword')">
+                            <i class="fa-solid fa-eye"></i>
+                        </span>
+                    </div>
+                    <span class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="regConfirmPassword">Confirm Password</label>
+                    <div class="form-icon-group">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="regConfirmPassword" class="form-control" placeholder="Re-enter password">
+                    </div>
+                    <span class="form-error"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mb-md">
+                    <i class="fa-solid fa-user-plus"></i> Create Account
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="login.html">Login Here</a></p>
+                <p class="mt-md"><a href="index.html" class="text-muted"><i class="fa-solid fa-arrow-left"></i> Back to Home</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('utilsContainer').innerHTML = getToastContainerHTML() + getLoaderHTML();
+            initTheme();
+            
+            // Redirect if already logged in
+            auth.onAuthStateChanged(user => {
+                if (user) window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>

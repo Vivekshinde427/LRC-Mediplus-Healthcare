@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | LRC Medi+ Healthcare</title>
+    <meta name="description"
+        content="View your past orders, manage your delivery address, and update your profile for LRC Medi+ Healthcare.">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Apply theme before CSS loads to prevent flash -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lrc-theme') || 'light');</script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+    <div id="headerContainer"></div>
+
+    <section class="section profile-section">
+        <div class="container animate-fadeInUp">
+
+            <div class="profile-layout">
+                <!-- Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="profile-card">
+                        <div class="profile-avatar" id="profileAvatar">U</div>
+                        <h3 id="sidebarName">Loading...</h3>
+                        <p id="sidebarEmail">...</p>
+                    </div>
+                    <div class="profile-nav">
+                        <a href="#info" data-tab="info" class="active"
+                            onclick="switchProfileTab('info'); return false;">
+                            <i class="fa-solid fa-user"></i> Personal Info
+                        </a>
+                        <a href="#orders" data-tab="orders" onclick="switchProfileTab('orders'); return false;">
+                            <i class="fa-solid fa-box"></i> Order History
+                        </a>
+                        <a href="#edit" data-tab="edit" onclick="switchProfileTab('edit'); return false;">
+                            <i class="fa-solid fa-pen-to-square"></i> Edit Profile
+                        </a>
+                        <a href="#" onclick="handleLogout(); return false;" class="text-danger mt-md"
+                            style="border-top:1px solid var(--border-color); border-radius:0;">
+                            <i class="fa-solid fa-right-from-bracket"></i> Logout
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="profile-content">
+
+                    <!-- View Info Tab -->
+                    <div id="tab-info" class="profile-tab-content">
+                        <div class="profile-content-card">
+                            <h3><i class="fa-solid fa-address-card"></i> Profile Details</h3>
+                            <div class="info-grid mt-lg">
+                                <div class="info-item">
+                                    <label>Full Name</label>
+                                    <div class="info-value" id="profileName">Loading...</div>
+                                </div>
+                                <div class="info-item">
+                                    <label>Email Address</label>
+                                    <div class="info-value" id="profileEmail">Loading...</div>
+                                </div>
+                                <div class="info-item">
+                                    <label>Mobile Number</label>
+                                    <div class="info-value" id="profileMobile">Loading...</div>
+                                </div>
+                                <div class="info-item" style="grid-column: 1/-1;">
+                                    <label>Delivery Address</label>
+                                    <div class="info-value" id="profileAddress">Loading...</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline mt-xl" onclick="switchProfileTab('edit')">
+                                <i class="fa-solid fa-pen"></i> Edit Details
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Edit Profile Tab -->
+                    <div id="tab-edit" class="profile-tab-content hidden">
+                        <div class="profile-content-card">
+                            <h3><i class="fa-solid fa-user-pen"></i> Edit Profile</h3>
+                            <form id="profileForm" onsubmit="handleProfileUpdate(event)" class="mt-lg">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <div class="form-icon-group">
+                                        <i class="fa-solid fa-user"></i>
+                                        <input type="text" id="editName" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mobile Number</label>
+                                    <div class="form-icon-group">
+                                        <i class="fa-solid fa-phone"></i>
+                                        <input type="tel" id="editMobile" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Delivery Address</label>
+                                    <div class="form-icon-group" style="align-items:flex-start">
+                                        <i class="fa-solid fa-location-dot" style="top:20px"></i>
+                                        <textarea id="editAddress" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="flex gap-md">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa-solid fa-save"></i> Save Changes
+                                    </button>
+                                    <button type="button" class="btn btn-outline" onclick="switchProfileTab('info')">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Orders Tab -->
+                    <div id="tab-orders" class="profile-tab-content hidden">
+                        <div class="profile-content-card">
+                            <h3><i class="fa-solid fa-boxes-packing"></i> Order History</h3>
+                            <div id="orderHistory" class="mt-lg">
+                                <!-- Orders injected by JS -->
+                                <div class="text-center text-muted" style="padding:40px">Loading orders...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footerContainer"></div>
+    <div id="utilsContainer"></div>
+
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerContainer').innerHTML = getHeaderHTML('profile');
+            document.getElementById('footerContainer').innerHTML = getFooterHTML();
+            document.getElementById('utilsContainer').innerHTML = getToastContainerHTML() + getLoaderHTML();
+
+            initCommonUI();
+
+            // Check URL hash for direct tab access (run before auth so UI tab is pre-set)
+            if (window.location.hash) {
+                const tab = window.location.hash.substring(1);
+                if (['info', 'edit', 'orders'].includes(tab)) {
+                    switchProfileTab(tab);
+                }
+            }
+
+            auth.onAuthStateChanged(user => {
+                if (!user) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                updateNavAuth(user);
+                loadProfile();
+            });
+        });
+    </script>
+</body>
+
+</html>

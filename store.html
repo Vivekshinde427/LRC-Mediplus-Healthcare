@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy & Rent Medical Equipment | LRC Medi+ Healthcare Store Navi Mumbai</title>
+    <meta name="description" content="Browse our complete catalog of medical equipment for rent and sale including wheelchairs, hospital beds, oxygen concentrators, and surgical items in Navi Mumbai.">
+    <meta name="keywords" content="hospital bed for rent, buy wheelchair online, oxygen concentrator rent, medical equipment catalog, LRC Medi+ store">
+    <meta property="og:title" content="LRC Medi+ Healthcare Store">
+    <meta property="og:description" content="Browse our complete catalog of medical equipment for rent and sale.">
+    <meta property="og:type" content="website">
+    <!-- Apply theme before CSS loads to prevent flash -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lrc-theme') || 'light');</script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+<body data-page-type="equipment">
+    <div id="headerContainer"></div>
+
+    <!-- Store Page Header -->
+    <section class="store-page-header">
+        <div class="container">
+            <h1 id="storePageTitle">Healthcare Equipment</h1>
+            <p id="storePageDesc">Browse our complete collection of medical equipment for rent and sale</p>
+        </div>
+    </section>
+
+    <!-- Info Bar -->
+    <div class="container">
+        <div class="contact-bar animate-fadeInUp delay-100">
+            <div class="contact-item">
+                <i class="fa-solid fa-truck-fast"></i> Home Delivery Available
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-phone"></i><a href="tel:+919152295170">+91 91522 95170</a>
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-phone"></i><a href="tel:+919699009192">+91 96990 09192</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section class="section products-section">
+        <div class="container">
+            <div class="products-toolbar animate-fadeInUp delay-200">
+                <div class="filter-group" id="filterButtons">
+                    <!-- Filters injected by JS -->
+                </div>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search equipment..." oninput="searchProducts()">
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer injected by JS -->
+    <div id="footerContainer"></div>
+    <div id="utilsContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/cart.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            document.getElementById('headerContainer').innerHTML = getHeaderHTML('store');
+            document.getElementById('footerContainer').innerHTML = getFooterHTML();
+            document.getElementById('utilsContainer').innerHTML = getToastContainerHTML() + getLoaderHTML();
+
+            initCommonUI();
+
+            auth.onAuthStateChanged(user => {
+                updateNavAuth(user);
+            });
+
+            showLoader();
+            try {
+                await initStorePage();
+            } catch (err) {
+                console.error('Store init error:', err);
+                showToast('error', 'Connection Error', 'Could not load products. Check your Firebase config.');
+            } finally {
+                hideLoader();
+            }
+        });
+    </script>
+</body>
+</html>

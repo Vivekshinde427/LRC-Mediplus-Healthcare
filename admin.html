@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | LRC Medi+ Healthcare</title>
+    <!-- Apply theme before CSS loads to prevent flash -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lrc-theme') || 'light');</script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+    <div id="headerContainer"></div>
+
+    <section class="section admin-section">
+        <div class="container animate-fadeInUp">
+
+            <div class="admin-layout">
+                <!-- Sidebar -->
+                <div class="admin-sidebar">
+                    <div class="admin-sidebar-header">
+                        <h4><i class="fa-solid fa-shield-halved"></i> Admin Panel</h4>
+                        <p>LRC Medi+ Healthcare</p>
+                    </div>
+                    <div class="admin-nav">
+                        <a href="#dashboard" data-tab="dashboard" class="active"
+                            onclick="switchAdminTab('dashboard'); return false;">
+                            <i class="fa-solid fa-chart-line"></i> Dashboard
+                        </a>
+                        <a href="#products" data-tab="products" onclick="switchAdminTab('products'); return false;">
+                            <i class="fa-solid fa-boxes-stacked"></i> Products
+                        </a>
+                        <a href="#orders" data-tab="orders" onclick="switchAdminTab('orders'); return false;">
+                            <i class="fa-solid fa-clipboard-check"></i> Orders
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="admin-content">
+
+                    <!-- Dashboard Tab -->
+                    <div id="admin-dashboard" class="admin-tab-content">
+                        <div class="admin-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon"
+                                    style="background:var(--color-primary-light); color:var(--color-primary)">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4 id="statProducts">0</h4>
+                                    <p>Total Products</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"
+                                    style="background:var(--color-secondary-light); color:var(--color-secondary)">
+                                    <i class="fa-solid fa-clipboard-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4 id="statOrders">0</h4>
+                                    <p>Total Orders</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon" style="background:var(--color-warning-light); color:#b45309">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4 id="statUsers">0</h4>
+                                    <p>Registered Users</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"
+                                    style="background:var(--color-info-light); color:var(--color-info)">
+                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4 id="statRevenue">₹0</h4>
+                                    <p>Total Revenue</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-bell"></i> Quick Alerts</h3>
+                            <div class="flex items-center gap-md"
+                                style="padding:var(--space-md); background:var(--color-warning-light); border-radius:var(--border-radius); color:#b45309;">
+                                <i class="fa-solid fa-triangle-exclamation" style="font-size:1.5rem"></i>
+                                <div>
+                                    <strong><span id="statPending">0</span> Pending Orders</strong> require your
+                                    attention.
+                                    <a href="#" onclick="switchAdminTab('orders')"
+                                        style="font-weight:700; text-decoration:underline; margin-left:10px;">Go to
+                                        Orders</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Tab -->
+                    <div id="admin-products" class="admin-tab-content hidden">
+                        <div class="admin-card" id="productFormSection">
+                            <h3 id="productFormTitle"><i class="fa-solid fa-plus-circle"></i> Add New Product</h3>
+                            <form id="productForm" onsubmit="handleProductSubmit(event)">
+                                <div class="admin-form-grid">
+                                    <div class="form-group">
+                                        <label>Product Name</label>
+                                        <input type="text" id="productName" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Product Type</label>
+                                        <select id="productType" class="form-control" required
+                                            onchange="handleProductTypeChange()">
+                                            <option value="equipment">Healthcare Equipment</option>
+                                            <option value="medicine">Medicine / Pharmacy</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Category</label>
+                                        <select id="productCategory" class="form-control" required>
+                                            <option value="">Select Category</option>
+                                            <option value="Wheelchair">Wheelchair</option>
+                                            <option value="Hospital Beds">Hospital Beds</option>
+                                            <option value="Surgical Equipment">Surgical Equipment</option>
+                                            <option value="Personal Care">Personal Care</option>
+                                            <option value="Other Healthcare Devices">Other Healthcare Devices</option>
+                                            <option value="Walkers">Walkers</option>
+                                            <option value="BiPAP / CPAP Ventilators">BiPAP / CPAP Ventilators</option>
+                                            <option value="Oxygen Concentrators">Oxygen Concentrators</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sale Price (₹)</label>
+                                        <input type="number" id="productPrice" class="form-control" required min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rent Price Per Day (₹)</label>
+                                        <input type="number" id="productRentPrice" class="form-control" required
+                                            min="0">
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label>Description</label>
+                                        <textarea id="productDesc" class="form-control" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Image Key (Optional)</label>
+                                        <input type="text" id="productImageKey" class="form-control"
+                                            placeholder="e.g. manual-wheelchair">
+                                        <small class="text-muted text-xs mt-xs">Leave empty to auto-generate
+                                            placeholder</small>
+                                    </div>
+                                    <div class="form-group"
+                                        style="display:flex; align-items:center; gap:10px; margin-top:30px;">
+                                        <input type="checkbox" id="productTrending" style="width:20px;height:20px;">
+                                        <label for="productTrending" style="margin:0;cursor:pointer">Mark as
+                                            Trending</label>
+                                    </div>
+                                </div>
+                                <div class="flex gap-md mt-lg">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa-solid fa-save"></i> Save Product
+                                    </button>
+                                    <button type="button" class="btn btn-outline hidden" id="cancelEdit"
+                                        onclick="cancelProductEdit()">
+                                        Cancel Edit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-list"></i> Product Inventory</h3>
+                            <div class="admin-table-wrapper">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Sale Price</th>
+                                            <th>Rent/Day</th>
+                                            <th>Trending</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productsTableBody">
+                                        <tr>
+                                            <td colspan="7" class="text-center">Loading...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Orders Tab -->
+                    <div id="admin-orders" class="admin-tab-content hidden">
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-clipboard-list"></i> Order Management</h3>
+                            <div class="admin-table-wrapper">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Customer</th>
+                                            <th>Items</th>
+                                            <th>Total</th>
+                                            <th>Date</th>
+                                            <th>Current Status</th>
+                                            <th>Update Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ordersTableBody">
+                                        <tr>
+                                            <td colspan="7" class="text-center">Loading...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footerContainer"></div>
+    <div id="utilsContainer"></div>
+
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerContainer').innerHTML = getHeaderHTML('admin');
+            document.getElementById('footerContainer').innerHTML = getFooterHTML();
+            document.getElementById('utilsContainer').innerHTML = getToastContainerHTML() + getLoaderHTML();
+
+            initCommonUI();
+
+            auth.onAuthStateChanged(user => {
+                if (!user) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                updateNavAuth(user);
+                initAdminPanel();
+            });
+        });
+    </script>
+</body>
+
+</html>

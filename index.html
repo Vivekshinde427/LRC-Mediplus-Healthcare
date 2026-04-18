@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LRC Medi+ Healthcare | Quality Medical Equipment Rent & Sale in Navi Mumbai</title>
+    <meta name="description"
+        content="Premium hospital equipment, wheelchairs, oxygen concentrators, and healthcare products for rent and sale in Navi Mumbai. Home delivery available.">
+    <meta name="keywords"
+        content="medical equipment rent, hospital bed rent Navi Mumbai, wheelchair sale, oxygen concentrator rent, surgical equipment, LRC Medi+ Healthcare">
+    <meta name="author" content="LRC Medi+ Healthcare">
+
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="LRC Medi+ Healthcare | Quality Medical Equipment">
+    <meta property="og:description"
+        content="Rent or buy premium hospital beds, wheelchairs, and oxygen concentrators in Navi Mumbai.">
+    <meta property="og:image" content="https://lrcmediplus.com/images/hero-card-1.jpg">
+    <meta property="og:url" content="https://lrcmediplus.com/">
+    <meta property="og:type" content="website">
+
+    <!-- JSON-LD Schema for Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "LRC Medi+ Healthcare",
+      "image": "https://lrcmediplus.com/images/main-logo.png",
+      "url": "https://lrcmediplus.com",
+      "telephone": "+919152295170",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ulwe",
+        "addressLocality": "Navi Mumbai",
+        "addressRegion": "Maharashtra",
+        "addressCountry": "IN"
+      },
+      "description": "Premium hospital equipment, surgical materials, and healthcare products for rent and sale in Navi Mumbai."
+    }
+    </script>
+
+    <!-- Apply theme before CSS loads to prevent flash -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lrc-theme') || 'light');</script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+    <!-- Header will be injected by JS -->
+    <div id="headerContainer"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-truck-fast"></i> Home Delivery Available
+                </div>
+                <h1>Medical Equipment<br>for <span class="highlight">Rent &amp; Sale</span></h1>
+                <p>We provide premium hospital beds, wheelchairs, surgical materials, and personal care devices right to
+                    your doorstep in Navi Mumbai and Mumbai.</p>
+
+                <div class="hero-actions">
+                    <a href="store.html" class="btn btn-primary btn-lg">
+                        <i class="fa-solid fa-cart-shopping"></i> Browse Equipment
+                    </a>
+                    <a href="tel:+919152295170" class="btn btn-outline btn-lg" style="color:white; border-color:white;">
+                        <i class="fa-solid fa-phone"></i> Call Now
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="stat-value">500+</div>
+                        <div class="stat-label">Happy Patients</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-value">50+</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-image-container">
+                    <img id="heroImage" src="images/hero-card-1.jpg" alt="Premium Hospital Equipment"
+                        style="transition: opacity 0.5s ease-in-out;">
+                    <script>
+                        // Animate hero image between the two new card designs
+                        document.addEventListener("DOMContentLoaded", () => {
+                            const heroImg = document.getElementById('heroImage');
+                            let currentCard = 1;
+                            setInterval(() => {
+                                heroImg.style.opacity = 0;
+                                setTimeout(() => {
+                                    currentCard = currentCard === 1 ? 2 : 1;
+                                    heroImg.src = `images/hero-card-${currentCard}.jpg`;
+                                    heroImg.style.opacity = 1;
+                                }, 500); // Wait for fade out to complete before swapping source
+                            }, 3000); // 3 second cycle
+                        });
+                    </script>
+                    <div class="hero-float-card card-1">
+                        <i class="fa-solid fa-stethoscope"
+                            style="color:var(--color-primary); background:var(--color-primary-light)"></i>
+                        <div class="card-info">
+                            <strong>Quality Assured</strong>
+                            <span>Sanitized &amp; Tested</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-float-card card-2">
+                        <i class="fa-solid fa-clock"
+                            style="color:var(--color-secondary); background:var(--color-secondary-light)"></i>
+                        <div class="card-info">
+                            <strong>Fast Delivery</strong>
+                            <span>Within 24 Hours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon icon-blue">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                    </div>
+                    <h4>Rent or Buy</h4>
+                    <p>Flexible options to either purchase equipment or rent it for as many days as you need.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-green">
+                        <i class="fa-solid fa-shield-virus"></i>
+                    </div>
+                    <h4>100% Sanitized</h4>
+                    <p>Every rental equipment goes through a rigorous multi-step clinical cleaning process.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-teal">
+                        <i class="fa-solid fa-truck-medical"></i>
+                    </div>
+                    <h4>Home Setup</h4>
+                    <p>Our technicians will deliver and set up complex equipment like ICU beds at your home.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-orange">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h4>24/7 Support</h4>
+                    <p>Dedicated helpline available for any medical equipment emergencies or troubleshooting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Products Slider -->
+    <section class="section trending-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Trending Equipment</h2>
+                <p>Most frequently rented and purchased products</p>
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    <!-- Products injected by JS -->
+                </div>
+            </div>
+
+            <div class="slider-controls">
+                <button class="slider-btn" id="sliderPrev"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="slider-dots" id="sliderDots"></div>
+                <button class="slider-btn" id="sliderNext"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section categories-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Browse by Category</h2>
+                <p>Find exactly what you need from our comprehensive inventory</p>
+            </div>
+
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA Section -->
+    <section class="contact-cta-section">
+        <div class="container">
+            <div class="contact-cta-content">
+                <h2>Need Help? We're Just a Call Away</h2>
+                <p>Get premium medical equipment delivered to your doorstep across Navi Mumbai and Mumbai. Our team is
+                    ready to assist you 24/7.</p>
+                <div class="flex justify-center gap-md" style="flex-wrap:wrap;">
+                    <a href="store.html" class="btn btn-primary btn-lg">
+                        <i class="fa-solid fa-store"></i> Browse Equipment
+                    </a>
+                    <a href="https://wa.me/919152295170?text=Hello%20LRC%20Medi%2B%20Healthcare!%20I%20need%20help%20with%20medical%20equipment."
+                        target="_blank" class="btn btn-lg" style="background:#25D366; color:white; border:none;">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp Us
+                    </a>
+                </div>
+                <div class="contact-cta-cards">
+                    <a href="https://wa.me/919152295170" target="_blank" class="contact-cta-card">
+                        <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
+                        <div class="card-label">WhatsApp</div>
+                        <div class="card-value">+91 91522 95170</div>
+                    </a>
+                    <a href="tel:+919699009192" class="contact-cta-card">
+                        <i class="fa-solid fa-phone phone-icon"></i>
+                        <div class="card-label">Phone / Alternate</div>
+                        <div class="card-value">+91 96990 09192</div>
+                    </a>
+                    <div class="contact-cta-card">
+                        <i class="fa-solid fa-location-dot location-icon"></i>
+                        <div class="card-label">Service Areas</div>
+                        <div class="card-value">Ulwe, Navi Mumbai &amp; Govandi, Mumbai</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer will be injected by JS -->
+    <div id="footerContainer"></div>
+
+    <!-- Utilities injected by JS -->
+    <div id="utilsContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/cart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Inject common HTML first
+            document.getElementById('headerContainer').innerHTML = getHeaderHTML('home');
+            document.getElementById('footerContainer').innerHTML = getFooterHTML();
+            document.getElementById('utilsContainer').innerHTML = getToastContainerHTML() + getLoaderHTML();
+
+            // 2. Wire up all UI interactions (theme toggle, mobile menu, etc.)
+            initCommonUI();
+
+            // 3. Auth state — update nav after header is in DOM
+            auth.onAuthStateChanged(user => {
+                updateNavAuth(user);
+            });
+
+            // 4. Load page data
+            showLoader();
+            try {
+                await initHomePage();
+            } catch (err) {
+                console.error('Homepage init error:', err);
+                showToast('error', 'Connection Error', 'Could not load products. Check your Firebase config.');
+            } finally {
+                hideLoader();
+            }
+        });
+    </script>
+</body>
+
+</html>
