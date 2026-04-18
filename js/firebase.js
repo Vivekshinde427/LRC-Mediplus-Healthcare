@@ -526,23 +526,7 @@ function initCommonUI() {
         }
     });
 
-    // Mobile menu toggle
-    const mobileBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.getElementById('navLinks');
-    if (mobileBtn && navLinks) {
-        mobileBtn.addEventListener('click', () => {
-            mobileBtn.classList.toggle('active');
-            navLinks.classList.toggle('show');
-        });
-
-        // Close mobile menu on link click
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileBtn.classList.remove('active');
-                navLinks.classList.remove('show');
-            });
-        });
-    }
+    // Mobile menu toggle removed (replaced by bottom nav)
 
     // User menu dropdown
     const userMenuBtn = document.getElementById('userMenuBtn');
@@ -628,16 +612,16 @@ function getHeaderHTML(activePage) {
 
             <nav class="nav-links" id="navLinks">
                 <a href="index.html" class="${activePage === 'home' ? 'active' : ''}">
-                    <i class="fa-solid fa-house"></i> Home
+                    <i class="fa-solid fa-house"></i> <span>Home</span>
                 </a>
                 <a href="store.html" class="${activePage === 'store' ? 'active' : ''}">
-                    <i class="fa-solid fa-stethoscope"></i> Healthcare
+                    <i class="fa-solid fa-stethoscope"></i> <span>Store</span>
                 </a>
                 <a href="medicines.html" class="${activePage === 'medicines' ? 'active' : ''}">
-                    <i class="fa-solid fa-pills"></i> Medicines
+                    <i class="fa-solid fa-pills"></i> <span>Rx</span>
                 </a>
                 <a href="cart.html" class="cart-link ${activePage === 'cart' ? 'active' : ''}">
-                    <i class="fa-solid fa-cart-shopping"></i> Cart
+                    <i class="fa-solid fa-cart-shopping"></i> <span>Cart</span>
                     <span class="cart-badge" id="cartBadge" style="display:none">0</span>
                 </a>
                 <a href="admin.html" class="${activePage === 'admin' ? 'active' : ''} hidden" id="adminLink">
@@ -678,11 +662,6 @@ function getHeaderHTML(activePage) {
                     </div>
                 </div>
 
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
         </div>
     </header>`;
