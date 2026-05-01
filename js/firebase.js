@@ -109,7 +109,7 @@ const SEED_PRODUCTS = [
         name: 'Manual Wheelchair',
         description: 'Durable manual wheelchair with comfortable seating and easy-fold mechanism. Suitable for indoor and outdoor use. Features adjustable footrests and armrests for maximum comfort.',
         price: 5999,
-        rentPricePerDay: 150,
+        rentPricePerMonth: 150,
         category: 'Wheelchair',
         imageKey: 'manual-wheelchair',
         isTrending: true
@@ -118,7 +118,7 @@ const SEED_PRODUCTS = [
         name: 'Electric Wheelchair',
         description: 'Battery-powered electric wheelchair with joystick control. Long battery life, comfortable cushioned seat, and smooth ride technology. Ideal for users needing powered mobility.',
         price: 45000,
-        rentPricePerDay: 800,
+        rentPricePerMonth: 800,
         category: 'Wheelchair',
         imageKey: 'electric-wheelchair',
         isTrending: true
@@ -127,7 +127,7 @@ const SEED_PRODUCTS = [
         name: 'Lightweight Folding Wheelchair',
         description: 'Ultra-lightweight aluminum frame wheelchair that folds compactly for travel. Weighs only 12 kg, making it easy to transport and store.',
         price: 8500,
-        rentPricePerDay: 200,
+        rentPricePerMonth: 200,
         category: 'Wheelchair',
         imageKey: 'lightweight-wheelchair',
         isTrending: false
@@ -137,7 +137,7 @@ const SEED_PRODUCTS = [
         name: 'Standard Hospital Bed',
         description: 'Manual crank hospital bed with adjustable head and foot sections. Includes side rails and IV pole holder. Perfect for home care and nursing facilities.',
         price: 18000,
-        rentPricePerDay: 500,
+        rentPricePerMonth: 500,
         category: 'Hospital Beds',
         imageKey: 'standard-hospital-bed',
         isTrending: true
@@ -146,7 +146,7 @@ const SEED_PRODUCTS = [
         name: 'ICU Bed with Side Rails',
         description: 'Premium ICU-grade bed with full electric adjustment, CPR function, and collapsible side rails. Features Trendelenburg positioning and backup battery.',
         price: 35000,
-        rentPricePerDay: 900,
+        rentPricePerMonth: 900,
         category: 'Hospital Beds',
         imageKey: 'icu-bed',
         isTrending: true
@@ -155,7 +155,7 @@ const SEED_PRODUCTS = [
         name: 'Semi-Electric Hospital Bed',
         description: 'Cost-effective semi-electric bed with electric head and foot adjustment. Manual bed height adjustment. Includes innerspring mattress.',
         price: 25000,
-        rentPricePerDay: 650,
+        rentPricePerMonth: 650,
         category: 'Hospital Beds',
         imageKey: 'semi-electric-bed',
         isTrending: false
@@ -165,7 +165,7 @@ const SEED_PRODUCTS = [
         name: 'Surgical Instrument Kit',
         description: 'Complete surgical instrument kit with 42 pieces including forceps, scissors, scalpel handles, and retractors. Made from premium stainless steel.',
         price: 12000,
-        rentPricePerDay: 400,
+        rentPricePerMonth: 400,
         category: 'Surgical Equipment',
         imageKey: 'surgical-kit',
         isTrending: false
@@ -174,7 +174,7 @@ const SEED_PRODUCTS = [
         name: 'Portable Suction Machine',
         description: 'Medical-grade portable suction machine with adjustable suction pressure. Battery operated with AC charging. Ideal for emergency and home care.',
         price: 15000,
-        rentPricePerDay: 450,
+        rentPricePerMonth: 450,
         category: 'Surgical Equipment',
         imageKey: 'suction-machine',
         isTrending: true
@@ -183,7 +183,7 @@ const SEED_PRODUCTS = [
         name: 'Oxygen Concentrator 5L',
         description: 'Medical oxygen concentrator with 5 liters per minute output. Low noise operation, built-in nebulizer port, and oxygen purity alarm system.',
         price: 45000,
-        rentPricePerDay: 1000,
+        rentPricePerMonth: 1000,
         category: 'Surgical Equipment',
         imageKey: 'oxygen-concentrator',
         isTrending: true
@@ -193,7 +193,7 @@ const SEED_PRODUCTS = [
         name: 'Digital Blood Pressure Monitor',
         description: 'Automatic digital blood pressure monitor with irregular heartbeat detection. Large LCD display, memory for 120 readings, and WHO indicator.',
         price: 2500,
-        rentPricePerDay: 80,
+        rentPricePerMonth: 80,
         category: 'Personal Care',
         imageKey: 'bp-monitor',
         isTrending: false
@@ -202,7 +202,7 @@ const SEED_PRODUCTS = [
         name: 'Fingertip Pulse Oximeter',
         description: 'Medical-grade pulse oximeter for measuring blood oxygen saturation (SpO2) and pulse rate. OLED display with auto-rotate feature.',
         price: 1200,
-        rentPricePerDay: 50,
+        rentPricePerMonth: 50,
         category: 'Personal Care',
         imageKey: 'pulse-oximeter',
         isTrending: false
@@ -211,7 +211,7 @@ const SEED_PRODUCTS = [
         name: 'Nebulizer Machine',
         description: 'Compressor nebulizer for respiratory therapy. Efficient drug delivery system with adjustable flow rate. Comes with adult and child masks.',
         price: 3500,
-        rentPricePerDay: 100,
+        rentPricePerMonth: 100,
         category: 'Personal Care',
         imageKey: 'nebulizer',
         isTrending: true
@@ -221,7 +221,7 @@ const SEED_PRODUCTS = [
         name: 'Multi-Parameter Patient Monitor',
         description: 'Advanced patient monitor tracking ECG, SpO2, NIBP, temperature, and respiration rate. 12.1-inch color display with alarm management.',
         price: 65000,
-        rentPricePerDay: 1500,
+        rentPricePerMonth: 1500,
         category: 'Other Healthcare Devices',
         imageKey: 'patient-monitor',
         isTrending: true
@@ -230,7 +230,7 @@ const SEED_PRODUCTS = [
         name: 'Infusion Pump',
         description: 'Volumetric infusion pump with precise flow rate control. Anti-free-flow mechanism, air bubble detection, and dose error reduction system.',
         price: 28000,
-        rentPricePerDay: 700,
+        rentPricePerMonth: 700,
         category: 'Other Healthcare Devices',
         imageKey: 'infusion-pump',
         isTrending: false
@@ -239,7 +239,7 @@ const SEED_PRODUCTS = [
         name: 'CPAP Machine',
         description: 'Continuous Positive Airway Pressure machine for sleep apnea treatment. Auto-adjusting pressure, humidifier included, and silicone mask.',
         price: 38000,
-        rentPricePerDay: 900,
+        rentPricePerMonth: 900,
         category: 'Other Healthcare Devices',
         productType: 'equipment',
         imageKey: 'cpap-machine',
@@ -250,7 +250,7 @@ const SEED_PRODUCTS = [
         name: 'Paracetamol 500mg (Strip of 15)',
         description: 'Effective pain relief and fever reduction medication. Can be used for headaches, toothaches, and minor body pains.',
         price: 25,
-        rentPricePerDay: 25, // For UI consistency
+        rentPricePerMonth: 25, // For UI consistency
         category: 'Pain Relief',
         productType: 'medicine',
         imageKey: 'paracetamol',
@@ -260,7 +260,7 @@ const SEED_PRODUCTS = [
         name: 'Amoxicillin 250mg (Strip of 10)',
         description: 'Broad-spectrum penicillin antibiotic used to treat various bacterial infections. Prescription required.',
         price: 85,
-        rentPricePerDay: 85,
+        rentPricePerMonth: 85,
         category: 'Antibiotics',
         productType: 'medicine',
         imageKey: 'amoxicillin',
@@ -270,7 +270,7 @@ const SEED_PRODUCTS = [
         name: 'Multivitamin Supplements (Bottle of 60)',
         description: 'Daily multivitamin to support overall health, energy levels, and immune system function.',
         price: 350,
-        rentPricePerDay: 350,
+        rentPricePerMonth: 350,
         category: 'Vitamins & Supplements',
         productType: 'medicine',
         imageKey: 'vitamins',
@@ -280,7 +280,7 @@ const SEED_PRODUCTS = [
         name: 'Premium First Aid Kit',
         description: 'Complete emergency first aid kit with bandages, antiseptic wipes, gauze dressings, and basic medical scissors.',
         price: 550,
-        rentPricePerDay: 550,
+        rentPricePerMonth: 550,
         category: 'First Aid',
         productType: 'medicine',
         imageKey: 'first-aid',
@@ -290,7 +290,7 @@ const SEED_PRODUCTS = [
         name: 'Metformin Hydrochloride 500mg',
         description: 'Oral antidiabetic medication used to treat type 2 diabetes and manage blood sugar levels.',
         price: 60,
-        rentPricePerDay: 60,
+        rentPricePerMonth: 60,
         category: 'Diabetes Care',
         productType: 'medicine',
         imageKey: 'metformin',
@@ -300,7 +300,7 @@ const SEED_PRODUCTS = [
         name: 'Digene Antacid Gel (200ml)',
         description: 'Fast acting antacid gel providing immediate relief from acidity, heartburn, and gas indigestion.',
         price: 120,
-        rentPricePerDay: 120,
+        rentPricePerMonth: 120,
         category: 'Digestives',
         productType: 'medicine',
         imageKey: 'digene',

@@ -56,7 +56,7 @@ function renderCart() {
                 <div class="item-info">
                     <h4>${item.name}</h4>
                     <span class="item-type ${item.type === 'buy' ? 'type-buy' : 'type-rent'}">
-                        ${item.type === 'buy' ? 'Purchase (COD)' : `Rental - ${item.rentDays} day${item.rentDays > 1 ? 's' : ''}`}
+                        ${item.type === 'buy' ? 'Purchase (COD)' : `Rental - ${item.rentMonths} month${item.rentMonths > 1 ? 's' : ''}`}
                     </span>
                 </div>
                 <div class="item-quantity">
@@ -72,7 +72,7 @@ function renderCart() {
                     <div class="price">${formatPrice(item.totalPrice)}</div>
                     <div class="price-details">
                         ${item.type === 'rent'
-                            ? `${formatPrice(item.price)}/day x ${item.rentDays} days x ${item.quantity}`
+                            ? `${formatPrice(item.price)}/month x ${item.rentMonths} months x ${item.quantity}`
                             : `${formatPrice(item.price)} x ${item.quantity}`
                         }
                     </div>
@@ -96,7 +96,7 @@ function updateQuantity(index, change) {
 
     // Recalculate total price
     if (cart[index].type === 'rent') {
-        cart[index].totalPrice = cart[index].price * cart[index].rentDays * cart[index].quantity;
+        cart[index].totalPrice = cart[index].price * cart[index].rentMonths * cart[index].quantity;
     } else {
         cart[index].totalPrice = cart[index].price * cart[index].quantity;
     }
@@ -172,7 +172,7 @@ async function placeOrder() {
     try {
         const totalAmount = cart.reduce((sum, item) => sum + item.totalPrice, 0);
         const hasRental = cart.some(item => item.type === 'rent');
-        const maxRentDuration = Math.max(...cart.map(item => item.rentDays || 0));
+        const maxRentDuration = Math.max(...cart.map(item => item.rentMonths || 0));
 
         const orderData = {
             orderId: generateOrderId(),
@@ -187,7 +187,7 @@ async function placeOrder() {
                 price: item.price,
                 quantity: item.quantity,
                 type: item.type,
-                rentDays: item.rentDays || 0,
+                rentMonths: item.rentMonths || 0,
                 totalPrice: item.totalPrice,
                 category: item.category
             })),
@@ -253,7 +253,7 @@ function quickAddToCart(productId) {
             image: product.image || getProductImage(product.imageKey),
             price: product.price,
             type: 'buy',
-            rentDays: 0,
+            rentMonths: 0,
             quantity: 1,
             totalPrice: product.price,
             category: product.category

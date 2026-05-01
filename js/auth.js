@@ -453,7 +453,7 @@ async function loadOrderHistory(userId) {
                         <div class="order-footer">
                             <div class="order-total">
                                 Total: <span class="amount">${formatPrice(order.totalAmount)}</span>
-                                ${order.type === 'rent' ? `<br><span class="text-sm text-muted">Rental: ${order.rentDuration} days</span>` : ''}
+                                ${order.type === 'rent' ? `<br><span class="text-sm text-muted">Rental: ${order.rentDuration} months</span>` : ''}
                             </div>
                             ${canCancel ? `
                                 <button class="btn btn-danger btn-sm" onclick="cancelOrder('${order._id}')">

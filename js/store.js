@@ -67,7 +67,7 @@ function renderSlider(track) {
                 <h4>${product.name}</h4>
                 <div class="card-price">
                     ${formatPrice(product.price)}
-                    ${product.productType === 'medicine' ? '' : `<span class="rent-price">Rent: ${formatPrice(product.rentPricePerDay)}/day</span>`}
+                    ${product.productType === 'medicine' ? '' : `<span class="rent-price">Rent: ${formatPrice(product.rentPricePerMonth)}/month</span>`}
                 </div>
             </div>
         </div>
@@ -355,7 +355,7 @@ function renderProducts() {
                 <div class="card-footer">
                     <div>
                         <div class="card-price">${formatPrice(product.price)}</div>
-                        ${product.productType === 'medicine' ? '' : `<span class="card-rent-price">Rent: ${formatPrice(product.rentPricePerDay)}/day</span>`}
+                        ${product.productType === 'medicine' ? '' : `<span class="card-rent-price">Rent: ${formatPrice(product.rentPricePerMonth)}/month</span>`}
                     </div>
                     <div style="display:flex;gap:6px;">
                         <button class="card-action-btn" style="background:var(--color-primary-light);color:var(--color-primary);"
@@ -386,7 +386,7 @@ function renderProducts() {
 // ============================================
 let currentProduct = null;
 let purchaseType = 'buy';
-let rentDays = 1;
+let rentMonths = 1;
 
 async function initProductDetail() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -460,7 +460,7 @@ function renderProductDetail() {
                     <span class="buy-price">${formatPrice(currentProduct.price)}</span>
                     ${isMedicine ? '' : `
                     <span class="rent-price-info">
-                        Rent at <strong>${formatPrice(currentProduct.rentPricePerDay)}</strong>/day
+                        Rent at <strong>${formatPrice(currentProduct.rentPricePerMonth)}</strong>/month
                     </span>
                     `}
                 </div>
@@ -481,12 +481,12 @@ function renderProductDetail() {
                     ${isMedicine ? '' : `
                     <div class="rent-options hidden" id="rentOptions">
                         <div class="rent-duration-group">
-                            <label>Number of Days:</label>
-                            <input type="number" id="rentDaysInput" value="1" min="1" max="365" 
+                            <label>Number of Months:</label>
+                            <input type="number" id="rentMonthsInput" value="1" min="1" max="12" 
                                    onchange="updateRentTotal()" oninput="updateRentTotal()">
                         </div>
                         <div class="rent-total" id="rentTotal">
-                            Total Rent: ${formatPrice(currentProduct.rentPricePerDay)}
+                            Total Rent: ${formatPrice(currentProduct.rentPricePerMonth)}
                         </div>
                     </div>
                     `}
@@ -530,15 +530,15 @@ function selectPurchaseType(type) {
 }
 
 function updateRentTotal() {
-    const input = document.getElementById('rentDaysInput');
+    const input = document.getElementById('rentMonthsInput');
     const totalEl = document.getElementById('rentTotal');
     if (!input || !totalEl || !currentProduct) return;
 
-    rentDays = Math.max(1, parseInt(input.value) || 1);
-    input.value = rentDays;
+    rentMonths = Math.max(1, parseInt(input.value) || 1);
+    input.value = rentMonths;
 
-    const total = currentProduct.rentPricePerDay * rentDays;
-    totalEl.innerHTML = `Total Rent: <strong>${formatPrice(total)}</strong> (${rentDays} day${rentDays > 1 ? 's' : ''})`;
+    const total = currentProduct.rentPricePerMonth * rentMonths;
+    totalEl.innerHTML = `Total Rent: <strong>${formatPrice(total)}</strong> (${rentMonths} month${rentMonths > 1 ? 's' : ''})`;
 }
 
 function addToCartFromDetail() {
@@ -554,7 +554,7 @@ function addToCartFromDetail() {
     let cart = JSON.parse(localStorage.getItem('lrc-cart') || '[]');
 
     const price = purchaseType === 'rent'
-        ? currentProduct.rentPricePerDay * rentDays
+        ? currentProduct.rentPricePerMonth * rentMonths
         : currentProduct.price;
 
     // Check if same product with same type already in cart
@@ -570,9 +570,9 @@ function addToCartFromDetail() {
             productId: currentProduct.id,
             name: currentProduct.name,
             image: currentProduct.image || getProductImage(currentProduct.imageKey),
-            price: purchaseType === 'buy' ? currentProduct.price : currentProduct.rentPricePerDay,
+            price: purchaseType === 'buy' ? currentProduct.price : currentProduct.rentPricePerMonth,
             type: purchaseType,
-            rentDays: purchaseType === 'rent' ? rentDays : 0,
+            rentMonths: purchaseType === 'rent' ? rentMonths : 0,
             quantity: 1,
             totalPrice: price,
             category: currentProduct.category
@@ -583,7 +583,7 @@ function addToCartFromDetail() {
     updateCartBadge();
 
     showToast('success', 'Added to Cart!',
-        `${currentProduct.name} (${purchaseType === 'rent' ? 'Rent - ' + rentDays + ' days' : 'Buy'}) added to your cart`);
+        `${currentProduct.name} (${purchaseType === 'rent' ? 'Rent - ' + rentMonths + ' months' : 'Buy'}) added to your cart`);
 }
 
 // ============================================

@@ -91,7 +91,7 @@ function renderAdminProducts() {
             <td><strong>${product.name}</strong></td>
             <td><span class="badge badge-primary">${product.category}</span></td>
             <td><strong>${formatPrice(product.price)}</strong></td>
-            <td>${formatPrice(product.rentPricePerDay)}/day</td>
+            <td>${formatPrice(product.rentPricePerMonth)}/month</td>
             <td>
                 <button class="btn btn-sm ${product.isTrending ? 'btn-secondary' : 'btn-ghost'}" 
                         onclick="toggleTrending('${product.id}', ${!product.isTrending})"
@@ -160,7 +160,7 @@ async function handleProductSubmit(e) {
             name,
             description,
             price,
-            rentPricePerDay: rentPrice,
+            rentPricePerMonth: rentPrice,
             productType,
             category,
             imageKey: imageKey || name.toLowerCase().replace(/\s+/g, '-'),
@@ -210,7 +210,7 @@ function editProduct(productId) {
     document.getElementById('productName').value = product.name;
     document.getElementById('productDesc').value = product.description;
     document.getElementById('productPrice').value = product.price;
-    document.getElementById('productRentPrice').value = product.rentPricePerDay;
+    document.getElementById('productRentPrice').value = product.rentPricePerMonth;
     document.getElementById('productCategory').value = product.category;
     document.getElementById('productImageKey').value = product.imageKey || '';
     document.getElementById('productTrending').checked = product.isTrending || false;
