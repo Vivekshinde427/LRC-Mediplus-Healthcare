@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "LRC Medi+ Healthcare - Full MERN Stack Application",
   "main": "server/server.js",
+  "type": "module",
   "scripts": {
     "install-all": "npm install --prefix server && npm install --prefix client",
     "build": "cd server && npm install && cd ../client && npm install && npm run build",
