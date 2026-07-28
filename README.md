@@ -20,8 +20,8 @@ A modern, full-stack healthcare e-commerce and medical equipment rental portal s
 - **Prescription Upload Support**: Option for customers to link doctor prescriptions during checkout.
 - **Cash / UPI on Delivery**: Flexible checkout methods for customer convenience.
 
-### 🎠 Admin-Managed Dynamic Hero Carousel & Branding Pamphlets
-- **Auto-Sliding Hero Banner**: Auto-looping 4-second image slider on the homepage with smooth transitions, left/right arrows, and dot indicators.
+### 🎠 Dynamic Hero Carousel & Branding Pamphlets
+- **Auto-Sliding Hero Banner**: Auto-looping image slider on the homepage with smooth transitions, navigation arrows, and dot indicators.
 - **Admin Pamphlet Control**: Admin can upload custom promo photos, announcement pamphlets, or special rental offer banners directly from the dashboard.
 
 ### 🤖 24/7 Gemini AI Healthcare Assistant
@@ -30,10 +30,10 @@ A modern, full-stack healthcare e-commerce and medical equipment rental portal s
 
 ### 👨‍⚕️ Comprehensive Admin Control Center
 - **Product Management**: Add, edit, or delete equipment and medicines with live image file uploads, pricing, stock status, and prescription tags.
-- **Image File Upload**: Built-in file uploader (`multer`) supporting drag & drop or direct URL input.
+- **Image File Upload**: Built-in file uploader supporting image upload or direct URL input.
 - **Hero Banner Manager**: Live banner preview, upload, and deletion.
 - **Order & Rental Management**: Real-time status update pipeline (`Pending` ➔ `Processing` ➔ `Shipped` ➔ `Delivered` / `Cancelled`).
-- **User Database**: Complete customer registration records and order history.
+- **User Database**: Customer registration records and order history.
 
 ### 🌓 UI/UX & Design System
 - **Light & Dark Theme Toggle**: Global theme context switching.
@@ -61,7 +61,7 @@ LRC_Healthcare/
 ├── client/                     # Vite React Frontend
 │   ├── public/                 # Static public assets
 │   ├── src/
-│   │   ├── components/         # Reusable Navbar, Footer, Chatbot, ProductCard
+│   │   ├── components/         # Navbar, Footer, Chatbot, ProductCard
 │   │   ├── context/            # AuthContext, CartContext, ThemeContext
 │   │   ├── pages/              # HomePage, StorePage, MedicinesPage, ProductDetailPage, CartPage, AdminDashboard, ProfilePage
 │   │   ├── services/           # Axios API instance with JWT interceptor
@@ -74,7 +74,6 @@ LRC_Healthcare/
 │   ├── middleware/             # JWT Protect & Admin authorization middleware
 │   ├── models/                 # Mongoose schemas (User, Product, Order, Banner, Prescription)
 │   ├── routes/                 # Express API routes
-│   ├── uploads/                # Local directory for uploaded product/banner images
 │   └── server.js               # Express application entry point
 ├── api/                        # Vercel serverless function bridge
 │   └── index.js
@@ -87,28 +86,17 @@ LRC_Healthcare/
 
 ## 🚀 Quick Start (Local Development)
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- [MongoDB](https://www.mongodb.com/) running locally (`mongodb://127.0.0.1:27017`) OR a [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) cluster URI.
-
 ### 1. Clone & Install Dependencies
 ```bash
 git clone https://github.com/Vivekshinde427/LRC-Mediplus-Healthcare.git
 cd LRC-Mediplus-Healthcare
 
-# Install root, server, and client dependencies
+# Install all dependencies
 npm run install-all
 ```
 
 ### 2. Configure Environment Variables
-Create a `.env` file inside the `server/` directory:
-
-```env
-PORT=5000
-MONGODB_URI=mongodb://127.0.0.1:27017/lrc_healthcare
-JWT_SECRET=lrc_healthcare_super_secret_jwt_key_2026
-GEMINI_API_KEY=your_gemini_api_key_here
-```
+Copy `.env.example` in `server/` to `.env` and fill in your database and API configurations.
 
 ### 3. Run Application
 From the root directory, start both the Express server and Vite React client simultaneously:
@@ -119,40 +107,6 @@ npm run dev
 
 - **Frontend Application**: `http://localhost:3000`
 - **Backend Express Server**: `http://localhost:5000`
-
----
-
-## 🔐 Default Admin Credentials
-
-To log in as administrator and access the Admin Control Center:
-
-- **Email**: `mediiplus.healthcare@gmail.com`
-- **Password**: `AdminPassword123!`
-
-*(Note: If the database is empty, click **Seed MongoDB Data** inside the Admin Dashboard or call `POST /api/seed` to populate sample equipment and the admin account).*
-
----
-
-## 🌐 Deploying to Vercel (Production)
-
-### How Database Access Works Online
-In local development, the app connects to your local laptop database (`mongodb://127.0.0.1:27017`). When deployed online, Vercel connects over the internet to **MongoDB Atlas** (a free, cloud-hosted MongoDB database), making the site accessible to everyone worldwide!
-
-### Steps to Deploy:
-1. **Push code to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Production release"
-   git push origin main
-   ```
-2. **Import in Vercel**:
-   - Connect your GitHub repo to [Vercel](https://vercel.com).
-   - Framework Preset: `Vite`.
-3. **Set Environment Variables in Vercel Dashboard**:
-   - `MONGODB_URI`: Your MongoDB Atlas Connection String (`mongodb+srv://...`)
-   - `JWT_SECRET`: `your_jwt_secret_key`
-   - `GEMINI_API_KEY`: Your Gemini API Key
-4. Click **Deploy**!
 
 ---
 
