@@ -99,7 +99,7 @@ export default function CartPage() {
     <div className="container" style={{ padding: '3rem 1.25rem' }}>
       <h1 style={{ marginBottom: '2rem' }}>Shopping Cart & Rental Checkout</h1>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 1fr', gap: '2rem' }}>
+      <div className="cart-grid">
         {/* Items List */}
         <div>
           {cartItems.map((item, idx) => (

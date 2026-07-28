@@ -3,23 +3,71 @@ import { Link } from 'react-router-dom';
 import API from '../services/api';
 import ProductCard from '../components/common/ProductCard';
 
+const DEFAULT_BANNERS = [
+  {
+    _id: 'default-1',
+    title: 'ICU Beds & Oxygen Concentrators',
+    caption: 'Flexible Monthly Rental Plans across Navi Mumbai',
+    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop'
+  },
+  {
+    _id: 'default-2',
+    title: 'Electric & Manual Wheelchairs',
+    caption: '100% Sanitized & Tested for Doorstep Delivery',
+    image: 'https://images.unsplash.com/photo-1589810635657-232948472d98?w=800&h=600&fit=crop'
+  },
+  {
+    _id: 'default-3',
+    title: 'Surgical & Emergency Care Supplies',
+    caption: 'Trusted Medical Grade Healthcare Equipment',
+    image: 'https://images.unsplash.com/photo-1584467735871-8e85353a8413?w=800&h=600&fit=crop'
+  }
+];
+
 export default function HomePage() {
   const [trendingProducts, setTrendingProducts] = useState([]);
+  const [banners, setBanners] = useState(DEFAULT_BANNERS);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchTrending = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await API.get('/products?trending=true');
-        setTrendingProducts(data);
+        const [resTrending, resBanners] = await Promise.all([
+          API.get('/products?trending=true'),
+          API.get('/banners')
+        ]);
+        setTrendingProducts(resTrending.data);
+        if (resBanners.data && resBanners.data.length > 0) {
+          setBanners(resBanners.data);
+        }
       } catch (error) {
-        console.error('Error fetching trending products:', error);
+        console.error('Error fetching home page data:', error);
       } finally {
         setLoading(false);
       }
     };
-    fetchTrending();
+    fetchData();
   }, []);
+
+  // Auto-play hero image slider loop every 4 seconds
+  useEffect(() => {
+    if (banners.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % banners.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [banners.length]);
+
+  const prevSlide = () => {
+    setCurrentSlide(prev => (prev - 1 + banners.length) % banners.length);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide(prev => (prev + 1) % banners.length);
+  };
+
+  const activeBanner = banners[currentSlide] || banners[0];
 
   return (
     <div>
@@ -46,12 +94,47 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* Dynamic Auto-Sliding Hero Banners */}
           <div className="hero-card-container">
             <img
-              src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop"
-              alt="Healthcare Equipment"
+              src={activeBanner.image}
+              alt={activeBanner.title || 'LRC Healthcare Banner'}
               className="hero-image"
+              onError={(e) => {
+                e.target.src = 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop';
+              }}
             />
+
+            {/* Title & Caption Overlay */}
+            {(activeBanner.title || activeBanner.caption) && (
+              <div className="hero-slider-overlay">
+                {activeBanner.title && <div className="hero-slider-title">{activeBanner.title}</div>}
+                {activeBanner.caption && <div className="hero-slider-caption">{activeBanner.caption}</div>}
+              </div>
+            )}
+
+            {/* Slider Nav Arrows */}
+            {banners.length > 1 && (
+              <>
+                <button className="hero-slider-arrow left" onClick={prevSlide} title="Previous slide">
+                  <i className="fa-solid fa-chevron-left"></i>
+                </button>
+                <button className="hero-slider-arrow right" onClick={nextSlide} title="Next slide">
+                  <i className="fa-solid fa-chevron-right"></i>
+                </button>
+
+                {/* Dot Indicators */}
+                <div className="hero-slider-dots">
+                  {banners.map((_, idx) => (
+                    <div
+                      key={idx}
+                      className={`hero-slider-dot ${idx === currentSlide ? 'active' : ''}`}
+                      onClick={() => setCurrentSlide(idx)}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>

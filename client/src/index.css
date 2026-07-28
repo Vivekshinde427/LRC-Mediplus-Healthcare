@@ -334,7 +334,93 @@ button {
   object-fit: cover;
   border-radius: var(--radius-lg);
   display: block;
+  transition: opacity 0.5s ease-in-out;
 }
+
+.hero-slider-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 1.25rem 1rem;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 70%, transparent 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-slider-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.hero-slider-caption {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.hero-slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: var(--transition);
+  z-index: 10;
+}
+
+.hero-slider-arrow:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.hero-slider-arrow.left {
+  left: 12px;
+}
+
+.hero-slider-arrow.right {
+  right: 12px;
+}
+
+.hero-slider-dots {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.hero-slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.hero-slider-dot.active {
+  width: 24px;
+  background: var(--primary);
+  border-radius: var(--radius-full);
+}
+
 
 /* Feature Cards Grid */
 .section-header {
@@ -642,6 +728,18 @@ button {
   flex-direction: column;
   z-index: 100;
   overflow: hidden;
+  animation: chatSlideUp 0.3s ease-out;
+}
+
+@keyframes chatSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .chat-header {
@@ -658,7 +756,7 @@ button {
   padding: 16px;
   overflow-y: auto;
   display: flex;
-  flex-direction: flex-column;
+  flex-direction: column;
   gap: 12px;
 }
 
@@ -668,6 +766,10 @@ button {
   border-radius: var(--radius-md);
   font-size: 0.9rem;
   margin-bottom: 8px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 1.5;
 }
 
 .chat-msg.bot {
@@ -713,6 +815,65 @@ button {
   font-size: 0.88rem;
 }
 
+/* Admin image upload styles */
+.image-upload-area {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background-color: var(--bg-main);
+}
+
+.image-upload-area:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.image-upload-area img {
+  max-width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+}
+
+.image-upload-area .upload-placeholder {
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.image-upload-area .upload-placeholder i {
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+/* Product detail grid */
+.product-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Cart layout grid */
+.cart-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 2rem;
+}
+
+/* Profile layout grid */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
 /* Media queries */
 @media (max-width: 900px) {
   .hero-grid {
@@ -720,6 +881,15 @@ button {
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
+  }
+  .product-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .cart-grid {
+    grid-template-columns: 1fr;
+  }
+  .profile-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -732,5 +902,11 @@ button {
   }
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+  .chatbot-window {
+    width: calc(100vw - 20px);
+    right: 10px;
+    bottom: 80px;
+    height: 450px;
   }
 }

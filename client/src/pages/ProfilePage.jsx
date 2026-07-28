@@ -60,7 +60,7 @@ export default function ProfilePage() {
     <div className="container" style={{ padding: '3rem 1.25rem' }}>
       <h1 style={{ marginBottom: '2rem' }}>User Dashboard & Account</h1>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
+      <div className="profile-grid">
         {/* Profile Card & Settings */}
         <div>
           <div className="form-card" style={{ margin: 0, maxWidth: '100%' }}>

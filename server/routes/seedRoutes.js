@@ -1,6 +1,7 @@
 import express from 'express';
 import User from '../models/User.js';
 import Product from '../models/Product.js';
+import Banner from '../models/Banner.js';
 
 const router = express.Router();
 
@@ -158,6 +159,28 @@ router.post('/seed', async (req, res) => {
         // Clear existing products & re-seed
         await Product.deleteMany({});
         const seededProducts = await Product.insertMany(SEED_PRODUCTS);
+
+        // Seed default Hero Banners if none exist
+        const existingBanners = await Banner.countDocuments({});
+        if (existingBanners === 0) {
+            await Banner.insertMany([
+                {
+                    title: 'ICU Beds & Oxygen Concentrators',
+                    caption: 'Flexible Monthly Rental Plans across Navi Mumbai',
+                    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop'
+                },
+                {
+                    title: 'Electric & Manual Wheelchairs',
+                    caption: '100% Sanitized & Tested for Doorstep Delivery',
+                    image: 'https://images.unsplash.com/photo-1589810635657-232948472d98?w=800&h=600&fit=crop'
+                },
+                {
+                    title: 'Surgical & Emergency Care Supplies',
+                    caption: 'Trusted Medical Grade Healthcare Equipment',
+                    image: 'https://images.unsplash.com/photo-1584467735871-8e85353a8413?w=800&h=600&fit=crop'
+                }
+            ]);
+        }
 
         // Ensure default admin user exists
         const adminEmail = 'mediiplus.healthcare@gmail.com';

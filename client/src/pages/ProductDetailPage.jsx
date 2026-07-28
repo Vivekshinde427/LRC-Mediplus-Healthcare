@@ -53,7 +53,7 @@ export default function ProductDetailPage() {
 
   return (
     <div className="container" style={{ padding: '3rem 1.25rem' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'start' }}>
+      <div className="product-detail-grid">
         {/* Product Image Display */}
         <div style={{ backgroundColor: 'var(--bg-card)', padding: '1rem', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-color)' }}>
           <img
