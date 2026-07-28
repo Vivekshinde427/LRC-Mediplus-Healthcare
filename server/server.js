@@ -20,28 +20,35 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Connect to MongoDB
-connectDB();
-
 // Middleware
 app.use(cors());
 app.use(express.json());
 
+// Ensure MongoDB is connected for every request (essential for Vercel Serverless)
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+    } catch (e) {
+        console.error('DB connect middleware error:', e.message);
+    }
+    next();
+});
+
 // Serve uploaded images as static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/chat', chatRoutes);
-app.use('/api/upload', uploadRoutes);
-app.use('/api/banners', bannerRoutes);
-app.use('/api', seedRoutes);
+// Routes — support both /api/* and direct /* paths for Vercel serverless compatibility
+app.use(['/api/auth', '/auth'], authRoutes);
+app.use(['/api/products', '/products'], productRoutes);
+app.use(['/api/orders', '/orders'], orderRoutes);
+app.use(['/api/chat', '/chat'], chatRoutes);
+app.use(['/api/upload', '/upload'], uploadRoutes);
+app.use(['/api/banners', '/banners'], bannerRoutes);
+app.use(['/api', '/'], seedRoutes);
 
 // Root route check
-app.get('/', (req, res) => {
-    res.send('LRC Medi+ Healthcare API Server is running...');
+app.get('/api-status', (req, res) => {
+    res.json({ message: 'LRC Medi+ Healthcare API Server is running...', timestamp: new Date() });
 });
 
 // Fallback error handler

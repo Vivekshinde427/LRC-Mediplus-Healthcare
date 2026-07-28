@@ -48,7 +48,7 @@ export default function Navbar() {
           {user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Link to="/profile" className="btn btn-secondary btn-sm">
-                <i className="fa-solid fa-user-circle"></i> {user.name.split(' ')[0]}
+                <i className="fa-solid fa-user-circle"></i> {user?.name ? user.name.split(' ')[0] : 'Account'}
               </Link>
               <button className="btn btn-outline-primary btn-sm" onClick={() => { logout(); navigate('/'); }}>
                 Logout

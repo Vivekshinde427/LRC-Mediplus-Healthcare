@@ -59,17 +59,21 @@ export default function AdminDashboard() {
     setLoading(true);
     try {
       const [resOrders, resProducts, resUsers, resBanners] = await Promise.all([
-        API.get('/orders'),
-        API.get('/products'),
-        API.get('/auth/users'),
-        API.get('/banners')
+        API.get('/orders').catch(e => ({ data: [] })),
+        API.get('/products').catch(e => ({ data: [] })),
+        API.get('/auth/users').catch(e => ({ data: [] })),
+        API.get('/banners').catch(e => ({ data: [] }))
       ]);
-      setOrders(resOrders.data);
-      setProducts(resProducts.data);
-      setUsersList(resUsers.data);
-      setBanners(resBanners.data || []);
+      setOrders(Array.isArray(resOrders?.data) ? resOrders.data : []);
+      setProducts(Array.isArray(resProducts?.data) ? resProducts.data : []);
+      setUsersList(Array.isArray(resUsers?.data) ? resUsers.data : []);
+      setBanners(Array.isArray(resBanners?.data) ? resBanners.data : []);
     } catch (error) {
       console.error('Error loading admin dashboard data:', error);
+      setOrders([]);
+      setProducts([]);
+      setUsersList([]);
+      setBanners([]);
     } finally {
       setLoading(false);
     }

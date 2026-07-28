@@ -68,10 +68,10 @@ export default function ProfilePage() {
               <div className="brand-icon" style={{ margin: '0 auto 10px', width: '60px', height: '60px', fontSize: '1.8rem' }}>
                 <i className="fa-solid fa-user-astronaut"></i>
               </div>
-              <h3 style={{ fontSize: '1.3rem' }}>{user.name}</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{user.email}</p>
-              <span className="badge" style={{ position: 'static', display: 'inline-block', marginTop: '6px', padding: '4px 12px', background: user.role === 'admin' ? 'var(--accent)' : 'var(--primary)', width: 'auto', height: 'auto' }}>
-                {user.role.toUpperCase()}
+              <h3 style={{ fontSize: '1.3rem' }}>{user?.name || 'User'}</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{user?.email || ''}</p>
+              <span className="badge" style={{ position: 'static', display: 'inline-block', marginTop: '6px', padding: '4px 12px', background: user?.role === 'admin' ? 'var(--accent)' : 'var(--primary)', width: 'auto', height: 'auto' }}>
+                {user?.role ? user.role.toUpperCase() : 'USER'}
               </span>
             </div>
 
@@ -135,7 +135,7 @@ export default function ProfilePage() {
             <div style={{ textAlign: 'center', padding: '2rem' }}>
               <i className="fa-solid fa-spinner fa-spin" style={{ fontSize: '2rem', color: 'var(--primary)' }}></i>
             </div>
-          ) : orders.length === 0 ? (
+          ) : (!Array.isArray(orders) || orders.length === 0) ? (
             <div className="form-card" style={{ margin: 0, maxWidth: '100%', textAlign: 'center' }}>
               <i className="fa-solid fa-box-open" style={{ fontSize: '3rem', color: 'var(--text-muted)', marginBottom: '1rem' }}></i>
               <h3>No Active Orders</h3>
