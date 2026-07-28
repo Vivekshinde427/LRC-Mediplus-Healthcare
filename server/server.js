@@ -15,8 +15,14 @@ import bannerRoutes from './routes/bannerRoutes.js';
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+let __dirname = process.cwd();
+try {
+    if (import.meta && import.meta.url) {
+        __dirname = path.dirname(fileURLToPath(import.meta.url));
+    }
+} catch (e) {
+    __dirname = process.cwd();
+}
 
 const app = express();
 
@@ -34,7 +40,7 @@ app.use(async (req, res, next) => {
     next();
 });
 
-// Serve uploaded images as static files
+// Serve uploaded images as static files if stored locally
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes — support both /api/* and direct /* paths for Vercel serverless compatibility
