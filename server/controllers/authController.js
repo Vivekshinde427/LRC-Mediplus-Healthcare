@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 import User from '../models/User.js';
+import connectDB from '../config/db.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET || 'lrc_healthcare_super_secret_jwt_key_2026', {
@@ -7,7 +9,21 @@ const generateToken = (id) => {
     });
 };
 
+// Ensure DB is connected before any auth operation
+const ensureDB = async (res) => {
+    try {
+        await connectDB();
+        return true;
+    } catch (e) {
+        res.status(503).json({
+            error: 'Database not configured. Please set MONGODB_URI in your Vercel environment variables. Visit /api-status for more info.'
+        });
+        return false;
+    }
+};
+
 export const registerUser = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const { name, email, password, phone, address } = req.body;
 
@@ -47,6 +63,7 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const { email, password } = req.body;
 
@@ -70,6 +87,7 @@ export const loginUser = async (req, res) => {
 };
 
 export const getUserProfile = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const user = await User.findById(req.user._id).select('-password');
         if (user) {
@@ -83,6 +101,7 @@ export const getUserProfile = async (req, res) => {
 };
 
 export const updateUserProfile = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const user = await User.findById(req.user._id);
 
@@ -115,6 +134,7 @@ export const updateUserProfile = async (req, res) => {
 };
 
 export const getAllUsers = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const users = await User.find({}).select('-password').sort({ createdAt: -1 });
         res.json(users);

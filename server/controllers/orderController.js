@@ -1,6 +1,18 @@
 import Order from '../models/Order.js';
+import connectDB from '../config/db.js';
+
+const ensureDB = async (res) => {
+    try {
+        await connectDB();
+        return true;
+    } catch (e) {
+        res.status(503).json({ error: 'Database not configured. Please add MONGODB_URI to Vercel environment variables.' });
+        return false;
+    }
+};
 
 export const createOrder = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const { items, totalPrice, deliveryAddress, phone, paymentMethod, prescriptionUrl } = req.body;
 
@@ -28,6 +40,7 @@ export const createOrder = async (req, res) => {
 };
 
 export const getMyOrders = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
         res.json(orders);
@@ -37,6 +50,7 @@ export const getMyOrders = async (req, res) => {
 };
 
 export const getAllOrders = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const orders = await Order.find({}).populate('user', 'id name email').sort({ createdAt: -1 });
         res.json(orders);
@@ -46,6 +60,7 @@ export const getAllOrders = async (req, res) => {
 };
 
 export const updateOrderStatus = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const order = await Order.findById(req.params.id);
 
@@ -62,6 +77,7 @@ export const updateOrderStatus = async (req, res) => {
 };
 
 export const cancelOrder = async (req, res) => {
+    if (!(await ensureDB(res))) return;
     try {
         const order = await Order.findById(req.params.id);
 

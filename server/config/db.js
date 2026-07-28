@@ -1,32 +1,42 @@
 import mongoose from 'mongoose';
 
-// Disable Mongoose query buffering so database errors fail fast instead of hanging Vercel serverless functions
-mongoose.set('bufferCommands', false);
+// Keep bufferCommands ON (default) so queries queue up while connecting
+// This is the correct setting for Vercel serverless
+let cached = global.mongoose;
 
-let isConnected = false;
+if (!cached) {
+    cached = global.mongoose = { conn: null, promise: null };
+}
 
 const connectDB = async () => {
-    if (isConnected || mongoose.connection.readyState >= 1) {
-        return true;
+    if (cached.conn) {
+        return cached.conn;
     }
 
-    const uri = process.env.MONGODB_URI;
-    if (!uri && process.env.VERCEL) {
-        console.warn('MONGODB_URI environment variable is not configured in Vercel.');
-        return false;
+    if (!cached.promise) {
+        const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/lrc_healthcare';
+
+        cached.promise = mongoose.connect(uri, {
+            serverSelectionTimeoutMS: 8000,
+            socketTimeoutMS: 45000
+        }).then((db) => {
+            console.log(`MongoDB Connected: ${db.connection.host}`);
+            return db;
+        }).catch((err) => {
+            cached.promise = null;
+            console.error(`MongoDB Connection Error: ${err.message}`);
+            throw err;
+        });
     }
 
     try {
-        const db = await mongoose.connect(uri || 'mongodb://127.0.0.1:27017/lrc_healthcare', {
-            serverSelectionTimeoutMS: 3000
-        });
-        isConnected = db.connections[0].readyState >= 1;
-        console.log(`MongoDB Connected: ${db.connection.host}`);
-        return true;
-    } catch (error) {
-        console.error(`MongoDB Connection Error: ${error.message}`);
-        return false;
+        cached.conn = await cached.promise;
+    } catch (e) {
+        cached.promise = null;
+        throw e;
     }
+
+    return cached.conn;
 };
 
 export default connectDB;
