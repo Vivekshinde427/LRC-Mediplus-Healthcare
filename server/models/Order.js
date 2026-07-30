@@ -5,7 +5,7 @@ const orderItemSchema = new mongoose.Schema({
     name: { type: String, required: true },
     quantity: { type: Number, required: true, default: 1 },
     option: { type: String, enum: ['buy', 'rent'], default: 'buy' },
-    rentDurationMonths: { type: Number, default: 1 },
+    rentDurationDays: { type: Number, default: 1 },
     price: { type: Number, required: true }
 });
 

@@ -38,7 +38,7 @@ export default function CartPage() {
           name: item.name,
           quantity: item.quantity,
           option: item.option,
-          rentDurationMonths: item.rentDurationMonths,
+          rentDurationDays: item.rentDurationDays,
           price: item.price
         })),
         totalPrice: totalAmount,
@@ -126,24 +126,24 @@ export default function CartPage() {
                 <h4 style={{ fontSize: '1.1rem' }}>{item.name}</h4>
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '4px' }}>
                   <span className={`tag-${item.option === 'rent' ? 'rent' : 'trending'}`} style={{ position: 'static' }}>
-                    {item.option === 'rent' ? `Rental (${item.rentDurationMonths} Month${item.rentDurationMonths > 1 ? 's' : ''})` : 'Purchase'}
+                    {item.option === 'rent' ? `Rental (${item.rentDurationDays} Day${item.rentDurationDays > 1 ? 's' : ''})` : 'Purchase'}
                   </span>
                   <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
                     ₹{item.price.toLocaleString('en-IN')} each
                   </span>
                 </div>
 
-                {/* Rental Month Adjuster */}
+                {/* Rental Day Adjuster */}
                 {item.option === 'rent' && (
                   <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <label style={{ fontSize: '0.85rem' }}>Months:</label>
+                    <label style={{ fontSize: '0.85rem' }}>Days:</label>
                     <select
-                      value={item.rentDurationMonths}
+                      value={item.rentDurationDays}
                       className="form-control"
                       style={{ width: 'auto', padding: '4px 8px' }}
                       onChange={(e) => updateRentDuration(item.product._id, item.option, Number(e.target.value))}
                     >
-                      {[1, 2, 3, 4, 5, 6, 12].map(m => (
+                      {[1, 2, 3, 5, 7, 10, 14, 30].map(m => (
                         <option key={m} value={m}>{m}</option>
                       ))}
                     </select>

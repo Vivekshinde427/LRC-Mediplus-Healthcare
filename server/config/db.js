@@ -17,7 +17,8 @@ const connectDB = async () => {
         const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/lrc_healthcare';
 
         cached.promise = mongoose.connect(uri, {
-            serverSelectionTimeoutMS: 8000,
+            bufferCommands: false,
+            serverSelectionTimeoutMS: 5000,
             socketTimeoutMS: 45000
         }).then((db) => {
             console.log(`MongoDB Connected: ${db.connection.host}`);

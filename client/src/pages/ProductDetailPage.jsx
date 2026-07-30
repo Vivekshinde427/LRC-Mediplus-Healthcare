@@ -11,7 +11,7 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [option, setOption] = useState('buy');
-  const [rentMonths, setRentMonths] = useState(1);
+  const [rentDays, setRentDays] = useState(1);
   const [qty, setQty] = useState(1);
 
   useEffect(() => {
@@ -48,8 +48,8 @@ export default function ProductDetailPage() {
     );
   }
 
-  const isRentalAvailable = product.rentPricePerMonth > 0;
-  const unitPrice = option === 'rent' ? product.rentPricePerMonth * rentMonths : product.price;
+  const isRentalAvailable = product.rentPricePerDay > 0;
+  const unitPrice = option === 'rent' ? product.rentPricePerDay * rentDays : product.price;
 
   return (
     <div className="container" style={{ padding: '3rem 1.25rem' }}>
@@ -87,7 +87,7 @@ export default function ProductDetailPage() {
                   className={`btn btn-full ${option === 'rent' ? 'btn-primary' : 'btn-secondary'}`}
                   onClick={() => setOption('rent')}
                 >
-                  <i className="fa-solid fa-clock-rotate-left"></i> Rent Monthly (₹{product.rentPricePerMonth.toLocaleString('en-IN')}/mo)
+                  <i className="fa-solid fa-clock-rotate-left"></i> rent daily (₹{product.rentPricePerDay.toLocaleString('en-IN')}/day)
                 </button>
               )}
             </div>
@@ -95,14 +95,14 @@ export default function ProductDetailPage() {
             {/* Rental Duration Selection */}
             {option === 'rent' && (
               <div className="form-group">
-                <label className="form-label">Rental Duration (Months):</label>
+                <label className="form-label">Rental Duration (Days):</label>
                 <select
                   className="form-control"
-                  value={rentMonths}
-                  onChange={(e) => setRentMonths(Number(e.target.value))}
+                  value={rentDays}
+                  onChange={(e) => setRentDays(Number(e.target.value))}
                 >
-                  {[1, 2, 3, 4, 5, 6, 12].map(m => (
-                    <option key={m} value={m}>{m} Month{m > 1 ? 's' : ''} (₹{(product.rentPricePerMonth * m).toLocaleString('en-IN')})</option>
+                  {[1, 2, 3, 5, 7, 10, 14, 30].map(m => (
+                    <option key={m} value={m}>{m} Day{m > 1 ? 's' : ''} (₹{(product.rentPricePerDay * m).toLocaleString('en-IN')})</option>
                   ))}
                 </select>
               </div>
@@ -133,7 +133,7 @@ export default function ProductDetailPage() {
               className="btn btn-primary btn-full"
               style={{ marginTop: '1rem' }}
               onClick={() => {
-                addToCart(product, option, rentMonths, qty);
+                addToCart(product, option, rentDays, qty);
                 navigate('/cart');
               }}
             >

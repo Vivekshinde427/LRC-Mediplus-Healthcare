@@ -4,7 +4,7 @@ const FALLBACK_BANNERS = [
     {
         _id: 'fb-b1',
         title: 'ICU Beds & Oxygen Concentrators',
-        caption: 'Flexible Monthly Rental Plans across Navi Mumbai',
+        caption: 'Flexible daily rental Plans across Navi Mumbai',
         image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop'
     },
     {

@@ -5,7 +5,7 @@ import { useCart } from '../../context/CartContext';
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
 
-  const isRentalAvailable = product.rentPricePerMonth > 0;
+  const isRentalAvailable = product.rentPricePerDay > 0;
 
   return (
     <div className="product-card">
@@ -36,8 +36,8 @@ export default function ProductCard({ product }) {
           </div>
           {isRentalAvailable && (
             <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>Monthly Rent</span>
-              <span className="price-rent">₹{product.rentPricePerMonth.toLocaleString('en-IN')}/mo</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>Daily Rent</span>
+              <span className="price-rent">₹{product.rentPricePerDay.toLocaleString('en-IN')}/day</span>
             </div>
           )}
         </div>

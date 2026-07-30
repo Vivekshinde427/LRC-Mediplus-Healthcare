@@ -45,7 +45,7 @@ export default function StorePage() {
       <div style={{ marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '2.2rem', marginBottom: '8px' }}>Medical Equipment Store</h1>
         <p style={{ color: 'var(--text-muted)' }}>
-          Browse wheelchairs, hospital beds, oxygen concentrators, and surgical instruments available for buy or monthly rental.
+          Browse wheelchairs, hospital beds, oxygen concentrators, and surgical instruments available for buy or daily rental.
         </p>
       </div>
 

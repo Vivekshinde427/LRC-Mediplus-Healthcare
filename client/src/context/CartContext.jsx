@@ -12,17 +12,17 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product, option = 'buy', rentDurationMonths = 1, quantity = 1) => {
+  const addToCart = (product, option = 'buy', rentDurationDays = 1, quantity = 1) => {
     setCartItems(prevItems => {
-      const pricePerUnit = option === 'rent' ? product.rentPricePerMonth * rentDurationMonths : product.price;
+      const pricePerUnit = option === 'rent' ? product.rentPricePerDay * rentDurationDays : product.price;
       const existingIndex = prevItems.findIndex(item => item.product._id === product._id && item.option === option);
 
       if (existingIndex > -1) {
         const updated = [...prevItems];
         updated[existingIndex].quantity += quantity;
         if (option === 'rent') {
-          updated[existingIndex].rentDurationMonths = rentDurationMonths;
-          updated[existingIndex].price = product.rentPricePerMonth * rentDurationMonths;
+          updated[existingIndex].rentDurationDays = rentDurationDays;
+          updated[existingIndex].price = product.rentPricePerDay * rentDurationDays;
         }
         return updated;
       } else {
@@ -31,7 +31,7 @@ export const CartProvider = ({ children }) => {
           name: product.name,
           quantity,
           option,
-          rentDurationMonths: option === 'rent' ? rentDurationMonths : 0,
+          rentDurationDays: option === 'rent' ? rentDurationDays : 0,
           price: pricePerUnit
         }];
       }
@@ -55,11 +55,11 @@ export const CartProvider = ({ children }) => {
     }));
   };
 
-  const updateRentDuration = (productId, option, months) => {
+  const updateRentDuration = (productId, option, days) => {
     setCartItems(prev => prev.map(item => {
-      if (item.product._id === productId && item.option === 'rent') {
-        const newPrice = item.product.rentPricePerMonth * months;
-        return { ...item, rentDurationMonths: months, price: newPrice };
+      if (item.product._id === productId && item.option === option) {
+        const newPrice = item.product.rentPricePerDay * days;
+        return { ...item, rentDurationDays: days, price: newPrice };
       }
       return item;
     }));

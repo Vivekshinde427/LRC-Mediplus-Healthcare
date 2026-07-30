@@ -7,7 +7,7 @@ const DEFAULT_BANNERS = [
   {
     _id: 'default-1',
     title: 'ICU Beds & Oxygen Concentrators',
-    caption: 'Flexible Monthly Rental Plans across Navi Mumbai',
+    caption: 'Flexible daily rental Plans across Navi Mumbai',
     image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop'
   },
   {
@@ -144,9 +144,9 @@ export default function HomePage() {
         <div className="grid-cards" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}>
           <div className="form-card" style={{ margin: 0, padding: '1.75rem', textAlign: 'center' }}>
             <i className="fa-solid fa-repeat" style={{ fontSize: '2.5rem', color: 'var(--primary)', marginBottom: '1rem' }}></i>
-            <h3>Flexible Monthly Rentals</h3>
+            <h3>Flexible daily rentals</h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '8px' }}>
-              Rent hospital beds or wheelchairs for as low as ₹150/month with zero long-term commitments.
+              Rent hospital beds or wheelchairs for as low as ₹150/day with zero long-term commitments.
             </p>
           </div>
 

@@ -6,7 +6,7 @@ const FALLBACK_PRODUCTS = [
         name: 'Manual Wheelchair',
         description: 'Durable manual wheelchair with comfortable seating and easy-fold mechanism. Suitable for indoor and outdoor use.',
         price: 5999,
-        rentPricePerMonth: 150,
+        rentPricePerDay: 150,
         category: 'Wheelchair',
         subCategory: 'equipment',
         image: 'https://images.unsplash.com/photo-1589810635657-232948472d98?w=500&h=400&fit=crop',
@@ -18,7 +18,7 @@ const FALLBACK_PRODUCTS = [
         name: 'Electric Wheelchair',
         description: 'Battery-powered electric wheelchair with joystick control. Long battery life and smooth ride technology.',
         price: 45000,
-        rentPricePerMonth: 800,
+        rentPricePerDay: 800,
         category: 'Wheelchair',
         subCategory: 'equipment',
         image: 'https://images.unsplash.com/photo-1589810635657-232948472d98?w=500&h=400&fit=crop',
@@ -30,7 +30,7 @@ const FALLBACK_PRODUCTS = [
         name: 'Standard Hospital Bed',
         description: 'Manual crank hospital bed with adjustable head and foot sections. Includes side rails and IV pole holder.',
         price: 18000,
-        rentPricePerMonth: 500,
+        rentPricePerDay: 500,
         category: 'Hospital Beds',
         subCategory: 'equipment',
         image: 'https://images.unsplash.com/photo-1584467735871-8e85353a8413?w=500&h=400&fit=crop',
@@ -42,7 +42,7 @@ const FALLBACK_PRODUCTS = [
         name: 'ICU Bed with Side Rails',
         description: 'Premium ICU-grade bed with full electric adjustment, CPR function, and collapsible side rails.',
         price: 35000,
-        rentPricePerMonth: 900,
+        rentPricePerDay: 900,
         category: 'Hospital Beds',
         subCategory: 'equipment',
         image: 'https://images.unsplash.com/photo-1584467735871-8e85353a8413?w=500&h=400&fit=crop',
@@ -54,7 +54,7 @@ const FALLBACK_PRODUCTS = [
         name: '5L Oxygen Concentrator',
         description: 'Continuous flow 5 Liters per minute oxygen concentrator with purity indicator (>93% purity). Quiet operation.',
         price: 32000,
-        rentPricePerMonth: 750,
+        rentPricePerDay: 750,
         category: 'Oxygen Concentrators',
         subCategory: 'equipment',
         image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&h=400&fit=crop',
@@ -66,7 +66,7 @@ const FALLBACK_PRODUCTS = [
         name: 'Paracetamol 650mg (Pack of 15)',
         description: 'Effective analgesic and antipyretic medicine for fever relief and mild to moderate pain relief.',
         price: 35,
-        rentPricePerMonth: 0,
+        rentPricePerDay: 0,
         category: 'Pain Relief',
         subCategory: 'medicine',
         image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&h=400&fit=crop',
@@ -78,7 +78,7 @@ const FALLBACK_PRODUCTS = [
         name: 'Multivitamin Capsules (30s)',
         description: 'Daily essential health supplement to boost immunity, energy, and overall wellbeing.',
         price: 249,
-        rentPricePerMonth: 0,
+        rentPricePerDay: 0,
         category: 'Vitamins & Supplements',
         subCategory: 'medicine',
         image: 'https://images.unsplash.com/photo-1577401239170-897942555fb3?w=500&h=400&fit=crop',
@@ -152,13 +152,13 @@ export const getProductById = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-        const { name, description, price, rentPricePerMonth, category, subCategory, image, isTrending, inStock, requiresPrescription } = req.body;
+        const { name, description, price, rentPricePerDay, category, subCategory, image, isTrending, inStock, requiresPrescription } = req.body;
 
         const product = new Product({
             name,
             description,
             price: Number(price),
-            rentPricePerMonth: rentPricePerMonth ? Number(rentPricePerMonth) : 0,
+            rentPricePerDay: rentPricePerDay ? Number(rentPricePerDay) : 0,
             category,
             subCategory: subCategory || 'equipment',
             image: image || '',
@@ -182,7 +182,7 @@ export const updateProduct = async (req, res) => {
             product.name = req.body.name || product.name;
             product.description = req.body.description || product.description;
             product.price = req.body.price !== undefined ? Number(req.body.price) : product.price;
-            product.rentPricePerMonth = req.body.rentPricePerMonth !== undefined ? Number(req.body.rentPricePerMonth) : product.rentPricePerMonth;
+            product.rentPricePerDay = req.body.rentPricePerDay !== undefined ? Number(req.body.rentPricePerDay) : product.rentPricePerDay;
             product.category = req.body.category || product.category;
             product.subCategory = req.body.subCategory || product.subCategory;
             product.image = req.body.image !== undefined ? req.body.image : product.image;

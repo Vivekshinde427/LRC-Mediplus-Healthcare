@@ -36,7 +36,7 @@ export default function AdminDashboard() {
     name: '',
     description: '',
     price: '',
-    rentPricePerMonth: '',
+    rentPricePerDay: '',
     category: 'Wheelchair',
     subCategory: 'equipment',
     image: '',
@@ -240,7 +240,7 @@ export default function AdminDashboard() {
       name: prod.name,
       description: prod.description,
       price: prod.price,
-      rentPricePerMonth: prod.rentPricePerMonth || '',
+      rentPricePerDay: prod.rentPricePerDay || '',
       category: prod.category,
       subCategory: prod.subCategory || 'equipment',
       image: prod.image || '',
@@ -426,7 +426,7 @@ export default function AdminDashboard() {
                   <td><strong>{prod.name}</strong></td>
                   <td>{prod.category} ({prod.subCategory})</td>
                   <td>₹{prod.price.toLocaleString('en-IN')}</td>
-                  <td>{prod.rentPricePerMonth ? `₹${prod.rentPricePerMonth}/mo` : 'N/A'}</td>
+                  <td>{prod.rentPricePerDay ? `₹${prod.rentPricePerDay}/day` : 'N/A'}</td>
                   <td>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.8rem' }}>
                       {prod.isTrending && <span style={{ color: 'var(--accent)' }}>🔥 Trending</span>}
@@ -613,7 +613,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="form-group">
                   <label className="form-label">Rent Price/Mo (₹)</label>
-                  <input type="number" className="form-control" placeholder="0 if not for rent" value={formData.rentPricePerMonth} onChange={(e) => setFormData({ ...formData, rentPricePerMonth: e.target.value })} />
+                  <input type="number" className="form-control" placeholder="0 if not for rent" value={formData.rentPricePerDay} onChange={(e) => setFormData({ ...formData, rentPricePerDay: e.target.value })} />
                 </div>
               </div>
 
