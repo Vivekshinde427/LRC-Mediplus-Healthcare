@@ -65,7 +65,7 @@ export default function CartPage() {
           <i className="fa-solid fa-circle-check" style={{ fontSize: '4rem', color: 'var(--success)', marginBottom: '1rem' }}></i>
           <h2>Order Placed Successfully!</h2>
           <p style={{ color: 'var(--text-muted)', margin: '1rem 0' }}>
-            Thank you for choosing LRC Medi+ Healthcare. We have received your order request and our team will contact you shortly to confirm delivery details.
+            Thank you for choosing Mediplus Healthcare. We have received your order request and our team will contact you shortly to confirm delivery details.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
             <Link to="/profile" className="btn btn-primary">

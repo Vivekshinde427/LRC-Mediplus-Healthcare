@@ -38,7 +38,7 @@ export default function RegisterPage() {
           </div>
           <h2>Create New Account</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '4px' }}>
-            Join LRC Medi+ for quick medical rentals & order updates
+            Join Mediplus Healthcare for quick medical rentals &amp; order updates
           </p>
         </div>
 

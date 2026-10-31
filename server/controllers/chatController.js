@@ -11,7 +11,7 @@ export const handleChat = async (req, res) => {
             const payload = {
                 contents: [{
                     parts: [{
-                        text: `You are an AI assistant for "LRC Medi+ Healthcare", a business renting and selling medical equipment like wheelchairs, hospital beds, oxygen concentrators, and surgical items based in Navi Mumbai. Be polite, concise, and helpful. Suggest relevant equipment if asked. Address the user's query: ${message}`
+                        text: `You are an AI assistant for "Mediplus Healthcare", a business renting and selling medical equipment like wheelchairs, hospital beds, oxygen concentrators, and surgical items based in Navi Mumbai. Be polite, concise, and helpful. Suggest relevant equipment if asked. Address the user's query: ${message}`
                     }]
                 }]
             };
@@ -95,7 +95,7 @@ function getLocalFallbackReply(message) {
         },
         {
             keywords: ['hello', 'hi', 'hey', 'good morning', 'good evening', 'namaste'],
-            reply: 'Hello! 👋 Welcome to LRC Medi+ Healthcare. I can help you with:\n\n• Medical equipment (wheelchairs, beds, oxygen concentrators)\n• daily rental plans\n• Medicines & supplements\n• Pricing & delivery info\n\nWhat would you like to know?'
+            reply: 'Hello! 👋 Welcome to Mediplus Healthcare. I can help you with:\n\n• Medical equipment (wheelchairs, beds, oxygen concentrators)\n• daily rental plans\n• Medicines & supplements\n• Pricing & delivery info\n\nWhat would you like to know?'
         },
         {
             keywords: ['thank', 'thanks', 'dhanyawad'],
@@ -117,5 +117,5 @@ function getLocalFallbackReply(message) {
         }
     }
 
-    return 'Thank you for contacting LRC Medi+ Healthcare! We offer sales and daily rentals for wheelchairs, hospital beds, oxygen concentrators, and surgical supplies in Navi Mumbai.\n\nYou can ask me about:\n• Equipment types & pricing\n• Rental plans\n• Medicines\n• Delivery & contact info\n\nHow can I help you today?';
+    return 'Thank you for contacting Mediplus Healthcare! We offer sales and daily rentals for wheelchairs, hospital beds, oxygen concentrators, and surgical supplies in Navi Mumbai.\n\nYou can ask me about:\n• Equipment types & pricing\n• Rental plans\n• Medicines\n• Delivery & contact info\n\nHow can I help you today?';
 }

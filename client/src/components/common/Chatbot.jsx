@@ -5,7 +5,7 @@ export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
-    { sender: 'bot', text: 'Hello! I am your LRC Medi+ AI Assistant. Ask me anything about renting or purchasing wheelchairs, hospital beds, oxygen concentrators, and medicines.' }
+    { sender: 'bot', text: 'Hello! I am your Mediplus Healthcare AI Assistant. Ask me anything about renting or purchasing wheelchairs, hospital beds, oxygen concentrators, and medicines.' }
   ]);
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -51,7 +51,7 @@ export default function Chatbot() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <i className="fa-solid fa-brain" style={{ fontSize: '1.2rem' }}></i>
               <div>
-                <strong style={{ fontSize: '0.95rem' }}>LRC Medi+ Assistant</strong>
+                <strong style={{ fontSize: '0.95rem' }}>Mediplus Healthcare Assistant</strong>
                 <span style={{ display: 'block', fontSize: '0.75rem', opacity: 0.9 }}>Powered by Gemini AI</span>
               </div>
             </div>
