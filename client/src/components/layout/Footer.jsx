@@ -7,8 +7,9 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <div className="brand-logo" style={{ marginBottom: '1rem' }}>
-              <img src="/images/mediplus-logo.png" alt="Mediplus Healthcare" style={{ height: '56px', width: 'auto', objectFit: 'contain' }} />
+            <div className="brand-logo" style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <img src="/images/mediplus-icon.png" alt="Mediplus Logo" style={{ height: '48px', width: '48px', objectFit: 'contain' }} />
+              <span style={{ fontWeight: '700', fontSize: '1.1rem', color: 'var(--primary)' }}>Mediplus Healthcare</span>
             </div>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>
               Your trusted medical equipment rental and sales partner based in Navi Mumbai. Providing high quality wheelchairs, ICU beds, oxygen concentrators, and daily medicine care.

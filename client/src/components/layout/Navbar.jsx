@@ -14,8 +14,9 @@ export default function Navbar() {
     <header className="navbar">
       <div className="container nav-container">
         {/* Brand Logo */}
-        <Link to="/" className="brand-logo">
-          <img src="/images/mediplus-logo.png" alt="Mediplus Healthcare" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
+        <Link to="/" className="brand-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+          <img src="/images/mediplus-icon.png" alt="Mediplus Logo" style={{ height: '48px', width: '48px', objectFit: 'contain' }} />
+          <span style={{ fontWeight: '700', fontSize: '1.2rem', color: 'var(--primary)', letterSpacing: '-0.3px' }}>Mediplus Healthcare</span>
         </Link>
 
         {/* Nav Links */}
