@@ -426,7 +426,7 @@ export default function AdminDashboard() {
                   <td><strong>{prod.name}</strong></td>
                   <td>{prod.category} ({prod.subCategory})</td>
                   <td>₹{prod.price.toLocaleString('en-IN')}</td>
-                  <td>{prod.rentPricePerDay ? `₹${prod.rentPricePerDay}/day` : 'N/A'}</td>
+                  <td>{prod.rentPricePerDay ? `₹${prod.rentPricePerDay}/month` : 'N/A'}</td>
                   <td>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.8rem' }}>
                       {prod.isTrending && <span style={{ color: 'var(--accent)' }}>🔥 Trending</span>}

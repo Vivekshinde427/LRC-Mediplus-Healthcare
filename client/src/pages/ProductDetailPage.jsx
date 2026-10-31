@@ -87,7 +87,7 @@ export default function ProductDetailPage() {
                   className={`btn btn-full ${option === 'rent' ? 'btn-primary' : 'btn-secondary'}`}
                   onClick={() => setOption('rent')}
                 >
-                  <i className="fa-solid fa-clock-rotate-left"></i> rent daily (₹{product.rentPricePerDay.toLocaleString('en-IN')}/day)
+                  <i className="fa-solid fa-clock-rotate-left"></i> rent monthly (₹{product.rentPricePerDay.toLocaleString('en-IN')}/month)
                 </button>
               )}
             </div>
@@ -95,14 +95,14 @@ export default function ProductDetailPage() {
             {/* Rental Duration Selection */}
             {option === 'rent' && (
               <div className="form-group">
-                <label className="form-label">Rental Duration (Days):</label>
+                <label className="form-label">Rental Duration (Months):</label>
                 <select
                   className="form-control"
                   value={rentDays}
                   onChange={(e) => setRentDays(Number(e.target.value))}
                 >
-                  {[1, 2, 3, 5, 7, 10, 14, 30].map(m => (
-                    <option key={m} value={m}>{m} Day{m > 1 ? 's' : ''} (₹{(product.rentPricePerDay * m).toLocaleString('en-IN')})</option>
+                  {[1, 2, 3, 4, 6, 9, 12].map(m => (
+                    <option key={m} value={m}>{m} Month{m > 1 ? 's' : ''} (₹{(product.rentPricePerDay * m).toLocaleString('en-IN')})</option>
                   ))}
                 </select>
               </div>

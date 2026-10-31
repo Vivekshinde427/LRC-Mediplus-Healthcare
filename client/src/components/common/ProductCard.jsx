@@ -36,8 +36,8 @@ export default function ProductCard({ product }) {
           </div>
           {isRentalAvailable && (
             <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>Daily Rent</span>
-              <span className="price-rent">₹{product.rentPricePerDay.toLocaleString('en-IN')}/day</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>Monthly Rent</span>
+              <span className="price-rent">₹{product.rentPricePerDay.toLocaleString('en-IN')}/month</span>
             </div>
           )}
         </div>

@@ -55,15 +55,15 @@ function getLocalFallbackReply(message) {
     const responses = [
         {
             keywords: ['wheelchair', 'wheel chair'],
-            reply: 'We offer a range of wheelchairs:\n\n• **Manual Wheelchair** — Buy ₹5,999 | Rent ₹150/day\n• **Electric Wheelchair** — Buy ₹45,000 | Rent ₹800/day\n• **Lightweight Folding Wheelchair** — Buy ₹8,500 | Rent ₹200/day\n\nAll wheelchairs are sanitized and delivered to your doorstep. Would you like to place an order?'
+            reply: 'We offer a range of wheelchairs:\n\n• **Manual Wheelchair** — Buy ₹5,999 | Rent ₹4,500/month\n• **Electric Wheelchair** — Buy ₹45,000 | Rent ₹24,000/month\n• **Lightweight Folding Wheelchair** — Buy ₹8,500 | Rent ₹6,000/month\n\nAll wheelchairs are sanitized and delivered to your doorstep. Would you like to place an order?'
         },
         {
             keywords: ['hospital bed', 'icu bed', 'bed'],
-            reply: 'We have several hospital beds available:\n\n• **Standard Hospital Bed** — Buy ₹18,000 | Rent ₹500/day\n• **ICU Bed with Side Rails** — Buy ₹35,000 | Rent ₹900/day\n• **Semi-Electric Hospital Bed** — Buy ₹26,000 | Rent ₹700/day\n\nAll beds include free delivery and installation in Navi Mumbai area.'
+            reply: 'We have several hospital beds available:\n\n• **Standard Hospital Bed** — Buy ₹18,000 | Rent ₹15,000/month\n• **ICU Bed with Side Rails** — Buy ₹35,000 | Rent ₹27,000/month\n• **Semi-Electric Hospital Bed** — Buy ₹26,000 | Rent ₹21,000/month\n\nAll beds include free delivery and installation in Navi Mumbai area.'
         },
         {
             keywords: ['oxygen', 'concentrator', 'o2'],
-            reply: 'We offer oxygen concentrators:\n\n• **5L Oxygen Concentrator** — Buy ₹32,000 | Rent ₹750/day\n\nFeatures >93% purity, quiet operation, and built-in nebulizer option. Available for immediate delivery.'
+            reply: 'We offer oxygen concentrators:\n\n• **5L Oxygen Concentrator** — Buy ₹32,000 | Rent ₹22,500/month\n\nFeatures >93% purity, quiet operation, and built-in nebulizer option. Available for immediate delivery.'
         },
         {
             keywords: ['medicine', 'tablet', 'pill', 'paracetamol', 'vitamin'],
@@ -71,11 +71,11 @@ function getLocalFallbackReply(message) {
         },
         {
             keywords: ['rent', 'rental', 'monthly'],
-            reply: 'Yes! We offer flexible daily rentals on medical equipment:\n\n• Wheelchairs from ₹150/day\n• Hospital Beds from ₹500/day\n• Oxygen Concentrators from ₹750/day\n\nNo long-term commitments required. All equipment is thoroughly sanitized before delivery.'
+            reply: 'Yes! We offer flexible monthly rentals on medical equipment:\n\n• Wheelchairs from ₹4,500/month\n• Hospital Beds from ₹15,000/month\n• Oxygen Concentrators from ₹22,500/month\n\nNo long-term commitments required. All equipment is thoroughly sanitized before delivery.'
         },
         {
             keywords: ['price', 'cost', 'rate', 'how much', 'kitna'],
-            reply: 'Our pricing varies by product:\n\n**Equipment (Buy | Rent/day):**\n• Wheelchairs: ₹5,999–₹45,000 | ₹150–₹800\n• Hospital Beds: ₹18,000–₹35,000 | ₹500–₹900\n• Oxygen Concentrators: ₹32,000 | ₹750\n\n**Medicines:** Starting from ₹35\n\nVisit our Store or Medicines page for detailed pricing!'
+            reply: 'Our pricing varies by product:\n\n**Equipment (Buy | Rent/month):**\n• Wheelchairs: ₹5,999–₹45,000 | ₹4,500–₹24,000\n• Hospital Beds: ₹18,000–₹35,000 | ₹15,000–₹27,000\n• Oxygen Concentrators: ₹32,000 | ₹22,500\n\n**Medicines:** Starting from ₹35\n\nVisit our Store or Medicines page for detailed pricing!'
         },
         {
             keywords: ['delivery', 'deliver', 'shipping', 'ship'],
@@ -95,7 +95,7 @@ function getLocalFallbackReply(message) {
         },
         {
             keywords: ['hello', 'hi', 'hey', 'good morning', 'good evening', 'namaste'],
-            reply: 'Hello! 👋 Welcome to Mediplus Healthcare. I can help you with:\n\n• Medical equipment (wheelchairs, beds, oxygen concentrators)\n• daily rental plans\n• Medicines & supplements\n• Pricing & delivery info\n\nWhat would you like to know?'
+            reply: 'Hello! 👋 Welcome to Mediplus Healthcare. I can help you with:\n\n• Medical equipment (wheelchairs, beds, oxygen concentrators)\n• Monthly rental plans\n• Medicines & supplements\n• Pricing & delivery info\n\nWhat would you like to know?'
         },
         {
             keywords: ['thank', 'thanks', 'dhanyawad'],
@@ -103,7 +103,7 @@ function getLocalFallbackReply(message) {
         },
         {
             keywords: ['surgical', 'suction', 'instrument'],
-            reply: 'We offer surgical equipment:\n\n• **Surgical Instrument Kit** — ₹2,499 (Buy only)\n• **Portable Suction Machine** — Buy ₹7,999 | Rent ₹250/day\n\nAll instruments are medical-grade stainless steel and sterilized.'
+            reply: 'We offer surgical equipment:\n\n• **Surgical Instrument Kit** — ₹2,499 (Buy only)\n• **Portable Suction Machine** — Buy ₹7,999 | Rent ₹7,500/month\n\nAll instruments are medical-grade stainless steel and sterilized.'
         },
         {
             keywords: ['bp', 'blood pressure', 'oximeter', 'monitor', 'pulse'],
@@ -117,5 +117,5 @@ function getLocalFallbackReply(message) {
         }
     }
 
-    return 'Thank you for contacting Mediplus Healthcare! We offer sales and daily rentals for wheelchairs, hospital beds, oxygen concentrators, and surgical supplies in Navi Mumbai.\n\nYou can ask me about:\n• Equipment types & pricing\n• Rental plans\n• Medicines\n• Delivery & contact info\n\nHow can I help you today?';
+    return 'Thank you for contacting Mediplus Healthcare! We offer sales and monthly rentals for wheelchairs, hospital beds, oxygen concentrators, and surgical supplies in Navi Mumbai.\n\nYou can ask me about:\n• Equipment types & pricing\n• Rental plans\n• Medicines\n• Delivery & contact info\n\nHow can I help you today?';
 }
